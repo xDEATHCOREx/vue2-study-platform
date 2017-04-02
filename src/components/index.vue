@@ -33,7 +33,7 @@ import preview from './preview.vue'
     data() {
       return {
       list: [{
-        image: '../../src/assets/img/a1.jpg',
+        image: '../assets/img/a1.jpg',
         title: 'Breakfast',
         author: 'Myron'
       }, {
@@ -146,7 +146,7 @@ import preview from './preview.vue'
 	  background-image: url('../assets/img/a3.jpg');
 	}
 	#slide4{
-	  background-image: url('../assets/img/a4.jpg');
+	  background-image: url('../assets/img/a5.jpg');
 	}
 	.copyright{
 		font-size: 0.5rem;
