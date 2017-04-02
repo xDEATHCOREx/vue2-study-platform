@@ -1,6 +1,6 @@
 <template>
 <div>
-  <mu-dialog :open="dialog" title="Dialog" >
+  <mu-dialog :open="dialog" :title="title" >
     {{info}}
     <mu-flat-button slot="actions" @click="cancel" primary label="Cancel"/>
     <mu-flat-button slot="actions" primary @click="confirm" label="Confirm"/>
@@ -19,7 +19,10 @@ export default {
   computed:mapState({
      dialog:state=>state.dialog.show,
      info:state=>state.dialog.info,
-     event:state=>state.event
+     title:state=>state.dialog.title,
+     event:state=>state.event,
+     jumpTo:state=>state.jumpTo,
+     docked:state=>state.docked,
   }),
   methods: {
     cancel(){
@@ -31,11 +34,27 @@ export default {
     },
     confirm () {
       console.warn(this.event)
-      this.$store.commit(this.event)//执行传入的mutation
+      if(this.event){
+        //this.$store.commit(this.event)//执行传入的mutation
+      }
+      if(this.event == 'logOut'){ //如果是确认登出则重定向至首页
+         this.$store.commit(this.event)//执行传入的mutation
+        this.$store.commit('topPopupToggle',"Log out success!")
+        this.$router.push({ 
+            path : '/'
+          })
+      }else if(this.event =='jump'){
+        this.$router.push({ 
+            path : this.jumpTo
+          })
+      }
       this.$store.commit('dialogToggle',{//关闭确认框并清除相关信息
         info : '',
-        event : ''
+        title:'',
+        event : '',
+        jumpTo :''
       })
+      
     }
   }
 }

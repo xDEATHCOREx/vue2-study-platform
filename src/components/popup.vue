@@ -22,11 +22,11 @@ export default {
      
   },
   watch: {
-    topPopup (val) {
+    topPopup (val) { 
       if (val) {
-        setTimeout(() => {
+        setTimeout(() => { //提示延时消失的时间
          this.$store.commit('topPopupToggle','')
-        }, 2000)
+        }, 1000)
       }
     }
   }

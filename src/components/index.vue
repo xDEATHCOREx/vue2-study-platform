@@ -2,7 +2,7 @@
 <div>
 	 <swiper :options="swiperOption" ref="mySwiper" class="swiper">
     <!-- slides -->
-    <swiper-slide class="slide" id="slide1">
+    <swiper-slide class="slide" id="slide1" >
     	<router-link class="link" :to="{path:'/detail',query:{id:'1'}}"></router-link>
     </swiper-slide>
     <swiper-slide class="slide" id="slide2">
@@ -20,14 +20,52 @@
     <div class="swiper-button-next" slot="button-next"></div>
     <div class="swiper-scrollbar"   slot="scrollbar"></div>
   </swiper>
+  <preview :list="list"></preview>
+  <preview :list="list2"></preview>
+  <p class="copyright">Copyright © 2017 Minhan Li</p>
 </div>
 </template>
 
 <script>
+import preview from './preview.vue'
  export default {
-    name: 'carrousel',
+    name: 'Main',
     data() {
       return {
+      list: [{
+        image: '../../src/assets/img/a1.jpg',
+        title: 'Breakfast',
+        author: 'Myron'
+      }, {
+        image: '../../src/assets/img/a9.jpg',
+        title: 'Burger',
+        author: 'Linyu'
+      }, {
+        image: '../../src/assets/img/a8.jpg',
+        title: 'Camera',
+        author: 'ruolin'
+      }, {
+        image: '../../src/assets/img/a10.jpg',
+        title: 'Hats',
+        author: 'kakali'
+      }],
+      list2: [{
+        image: '../../src/assets/img/a3.jpg',
+        title: 'Test',
+        author: 'fuck'
+      }, {
+        image: '../../src/assets/img/a4.jpg',
+        title: 'check',
+        author: 'Linyu'
+      }, {
+        image: '../../src/assets/img/a5.jpg',
+        title: 'heyyyyyyyyyyyy',
+        author: 'ruolin'
+      }, {
+        image: '../../src/assets/img/a6.jpg',
+        title: 'Hats',
+        author: 'xxxxxxxxxxxxxx'
+      }],
       	title:'Index',
         swiperOption: {
           // NotNextTick is a component's own property, and if notNextTick is set to true, the component will not instantiate the swiper through NextTick, which means you can get the swiper object the first time (if you need to use the get swiper object to do what Things, then this property must be true)
@@ -49,6 +87,7 @@
           // if you need use plugins in the swiper, you can config in here like this
           // 如果自行设计了插件，那么插件的一些配置相关参数，也应该出现在这个对象中，如下debugger
           debugger: true,
+          //lazyLoading : true,//设置lazyload
           // swiper callbacks
           // swiper的各种回调函数也可以出现在这个对象中，和swiper官方一样
           onTransitionStart(swiper){
@@ -65,6 +104,9 @@
       swiper() {
         return this.$refs.mySwiper.swiper
       }
+    },
+    components:{
+    	'preview': preview
     },
     mounted() {
       //更改header的title，实际上是改变store里的值
@@ -105,5 +147,10 @@
 	}
 	#slide4{
 	  background-image: url('../assets/img/a4.jpg');
+	}
+	.copyright{
+		font-size: 0.5rem;
+    	color: #B7BBBf;
+    	text-align: center;
 	}
 </style>

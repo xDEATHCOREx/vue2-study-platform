@@ -5,22 +5,24 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
 	state:{
-		title:'Index',
-		user:'',
-		logIn:false,
-		open: false,
-        docked: true,
-        topPopup:false,
-        tips:{
+		title:'Index', //顶部导航条的标题
+		user:'', //登录用户名
+		logIn:false, //用户登录态
+		open: false, //侧边菜单打开状态
+        docked: true, // 侧边菜单遮罩状态
+        topPopup:false, //上方提示条状态
+        tips:{ //提示条配置
         	type:'test',
         	info:'test',
         	color:'red',
         },
-        dialog:{
+        dialog:{ //提示弹出框配置
         	show:false,
+        	title:'',
         	info:''
         },
-        event:''
+        event:'', //当前事件
+        jumpTo:'',
 	},
 	mutations:{
 		setTitle:(state,title)=>{
@@ -35,7 +37,7 @@ const store = new Vuex.Store({
 		},
 		logOut:(state)=>{
 			localStorage.removeItem('user')
-			state.userName = ''
+			state.user = ''
 			state.logIn = false
 		},
 		toggle:(state,flag)=>{
@@ -51,7 +53,12 @@ const store = new Vuex.Store({
     	dialogToggle:(state,payload)=>{
     		state.dialog.show = !state.dialog.show
     		state.dialog.info = payload.info
+    		state.dialog.title = payload.title
     		state.event = payload.event
+    		if(payload.jumpTo!==''){
+    			state.jumpTo =  payload.jumpTo
+    		}
+
     	}
 	}
 })

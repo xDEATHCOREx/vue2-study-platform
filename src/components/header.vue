@@ -1,6 +1,6 @@
 <template>
-<div>
-  <mu-appbar :title="title">
+<div >
+  <mu-appbar :title="title" class="header-nav">
   	<mu-icon-button icon='menu' slot="left" label="undocked drawer" @click="showMenu(true)"/>
   	<mu-icon-button icon='expand_more' slot="right"/>
   </mu-appbar>
@@ -35,5 +35,10 @@ export default {
 <style lang="css" scoped>
 	.demo-raised-button{
 	
+	}
+	.header-nav{
+		position: fixed;
+		top: 0;
+		z-index:99;
 	}
 </style>
