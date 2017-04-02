@@ -78,7 +78,7 @@ if(user){
 }
 
 const router = new VueRouter({
-	 mode: 'history',//这种模式充分利用 history.pushState API 来完成 URL 跳转而无须重新加载页面。
+	//mode: 'history',//这种模式充分利用 history.pushState API 来完成 URL 跳转而无须重新加载页面。
 	routes,
 	 scrollBehavior (to, from, savedPosition) {
     return { x: 0, y: 0 }//对于所有路由导航，简单地让页面滚动到顶部。
