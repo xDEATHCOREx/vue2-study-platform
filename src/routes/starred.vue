@@ -2,7 +2,7 @@
 <div>
 
  <mu-tabs :value="activeTab" @change="handleTabChange">
-  <mu-tab value="tab1" icon="phone" title="QUESTIONS"  @click.native="confirm('Confirm to jump to detail?','Jump?','jump','/detail')"/>
+  <mu-tab value="tab1" icon="phone" title="QUESTIONS"  @click.native="confirm('Confirm to jump to detail?','Jump?','jump','/detail?id='+n)"/>
   <mu-tab value="tab2" icon="favorite" title="COURSES"/>
 </mu-tabs>
 <div v-if="activeTab === 'tab1'">

@@ -28,7 +28,9 @@ export default {
     cancel(){
       this.$store.commit('dialogToggle',{//关闭确认框并清除相关信息
         info : '',
-        event : ''
+        title:'',
+        event : '',
+        jumpTo :''
       })
       console.info("canceled")
     },
@@ -53,8 +55,7 @@ export default {
         title:'',
         event : '',
         jumpTo :''
-      })
-      
+      })  
     }
   }
 }

@@ -21,8 +21,8 @@ const store = new Vuex.Store({
         	title:'',
         	info:''
         },
-        event:'', //当前事件
-        jumpTo:'',
+        event:'', //记录当前事件
+        jumpTo:'',//记录当前要跳转到的位置
 	},
 	mutations:{
 		setTitle:(state,title)=>{
@@ -55,7 +55,7 @@ const store = new Vuex.Store({
     		state.dialog.info = payload.info
     		state.dialog.title = payload.title
     		state.event = payload.event
-    		if(payload.jumpTo!==''){
+    		if(payload.jumpTo){
     			state.jumpTo =  payload.jumpTo
     		}
 
