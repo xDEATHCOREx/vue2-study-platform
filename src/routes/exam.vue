@@ -27,13 +27,28 @@
   <mu-radio label="Choose 3" :name="questions[n]" nativeValue="C" v-model="answer[n]"  class="demo-radio"/> <br/>
   <mu-radio label="Choose 4" :name="questions[n]" nativeValue="D" v-model="answer[n]"  class="demo-radio"/> <br/>
  </mu-card>
- <mu-paper class="sub-title">Multi selects</mu-paper>
+ <mu-paper class="sub-title" v-for="x in 20" >
+  <a class="target-fix" :id="'type'+x"></a>
+  Multi selects{{x}}
+ </mu-paper>
+
   {{answer}}
 
-  <a href="/exam#q3">
-    <mu-float-button icon="add" mini class="demo-float-button"/>
+ <mu-icon-menu
+      icon="add"
+      :anchorOrigin="rightBottom"
+      :targetOrigin="rightBottom"
+    >
+    <a href="#type1" >
+      <mu-menu-item title="Refresh" />
     </a>
-
+     <a href="#type10">
+      <mu-menu-item title="Send feedback" />
+    </a>
+     <a href="javascript:void(0)" @click='intoView(8)'>
+      <mu-menu-item title="Settings" />
+     </a>
+    </mu-icon-menu>
 </div>
 
 </template>
@@ -52,7 +67,8 @@
         answer:{
           1:'',2:'',3:'',4:'',
         },
-        questions:["q1","q2","q3","q4"]
+        questions:["q1","q2","q3","q4"],
+        rightBottom: {horizontal: 'right', vertical: 'bottom'},
       }
     },
     mounted(){
@@ -60,7 +76,15 @@
       this.$store.commit('setTitle',this.title)
     },
     methods:{
-      
+      intoView(index){
+        var type = document.getElementById('type'+index)
+        if(typeof type.scrollIntoViewIfNeeded == "function"){ //支持将元素显示在页面中间
+          type.scrollIntoViewIfNeeded(true)
+        }
+        else{
+          type.scrollIntoView(false)
+        }
+      }
     },
     components:{
     },
@@ -104,9 +128,16 @@
   .mu-radio{
     margin-left: 30px;
   }
-  .mu-float-button{
+  .mu-icon-menu{
     position: fixed;
     bottom: 5px;
     right: 5px;
+  }
+  .target-fix { /*暗锚的样式*/
+    position: relative;
+    top: -80px; 
+    display: block;
+    height: 0;
+    overflow: hidden;
   }
 </style>

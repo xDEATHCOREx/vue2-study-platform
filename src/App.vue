@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" >
       <popup></popup>
        <confirm></confirm>
        <loading></loading>
@@ -11,6 +11,7 @@
 </template>
 
 <script> 
+
 import popup from './components/popup.vue'
 import header from './components/header.vue'
 import confirm from './components/confirm.vue'

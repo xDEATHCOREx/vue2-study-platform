@@ -12,6 +12,8 @@ const store = new Vuex.Store({
         docked: true, // 侧边菜单遮罩状态
         topPopup:false, //上方提示条状态
         isLoading:false,//载入菊花状态
+        isScroll:false,
+        scrollDirection:'',
         tips:{ //提示条配置
         	type:'test',
         	info:'test',
@@ -34,7 +36,6 @@ const store = new Vuex.Store({
 			state.user = user//同样存进store的state中
 			state.logIn = true
 			console.info("logged in")
-
 		},
 		logOut:(state)=>{
 			localStorage.removeItem('user')
@@ -62,7 +63,10 @@ const store = new Vuex.Store({
     	},
         loadingToggle:(state)=>{
             state.isLoading = !state.isLoading
-        }
+        },
+        scrolling:(state)=>{
+            state.isScroll = true
+        },
 	}
 })
 

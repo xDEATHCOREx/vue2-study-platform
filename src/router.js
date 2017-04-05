@@ -14,11 +14,6 @@ Vue.use(VueRouter)
 
 const routes = [
 	{
-		path:'/',
-		name:'index',
-		component:index,
-	},
-	{
 		path:'/login',
 		name:'login',
 		component:login
@@ -74,6 +69,11 @@ const routes = [
 		}
 	},
 	{
+		path:'/',
+		name:'index',
+		component:index,
+	},
+	{
 	//没有匹配的路由时重定向到主页，这里必须写在最后
 	//问题1：这里重定向不会去掉?的query string
 		path:'*',
@@ -97,7 +97,7 @@ const router = new VueRouter({
 	 scrollBehavior (to, from, savedPosition) {
 	 if (to.hash) {
     	return {
-     	 selector: to.hash
+     	 selector: to.hash,
     	}
  	 }
     return { x: 0, y: 0 }//对于所有路由导航，简单地让页面滚动到顶部。
