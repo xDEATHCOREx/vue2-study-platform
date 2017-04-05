@@ -29,7 +29,7 @@
 	export default {
     data () {
       return {
-        activeTab: 'tab1',
+        activeTab: 'tab1',//可设置默认tab
         title:'Starred',
         n:'1'
       }

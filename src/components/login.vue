@@ -1,9 +1,9 @@
 <template>
 <div class="root">
-   <mu-text-field label="user" hintText="Input User name" v-model="user" labelFloat/>
+   <mu-text-field label="user" hintText="Input User name" v-model.trim="user" labelFloat/>
    <br/>
    <div class="password-input">
-   <mu-text-field label="password" hintText="Input password" :type="passwordType" v-model="password" labelFloat/>
+   <mu-text-field label="password" hintText="Input password" :type="passwordType" v-model.trim="password" labelFloat/>
    <i class="eye mu-icon material-icons" @click="isVisible">{{visibility}}</i>
    </div>
    <br/>

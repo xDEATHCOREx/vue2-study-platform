@@ -1,7 +1,8 @@
 <template>
   <div id="app">
       <popup></popup>
-       <confirm ></confirm>
+       <confirm></confirm>
+       <loading></loading>
       <top-header ></top-header>
      <transition>
       <router-view class="view"></router-view>
@@ -13,6 +14,7 @@
 import popup from './components/popup.vue'
 import header from './components/header.vue'
 import confirm from './components/confirm.vue'
+import loading from './components/loading.vue'
 export default{
    data () {
     return {
@@ -20,16 +22,16 @@ export default{
     }
   },
     components:{
-      'top-header': header,
+      'top-header': header,//顶部条
       'popup': popup,//这里是全局提示的组件
       'confirm': confirm,
+      'loading':loading,
     },
   }
 </script>
 
 <style lang="css">
   html,body{
-    //height: 100%;
   }
   .view{
     margin-top: 56px;

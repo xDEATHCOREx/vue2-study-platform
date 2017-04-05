@@ -3,7 +3,7 @@
 	 <swiper :options="swiperOption" ref="mySwiper" class="swiper">
     <!-- slides -->
     <swiper-slide class="slide" id="slide1" >
-    	<router-link class="link" :to="{path:'/detail',query:{id:'1'}}"></router-link>
+    	<router-link class="link" :to="{path:'/exam',query:{id:'1'}}"></router-link>
     </swiper-slide>
     <swiper-slide class="slide" id="slide2">
     	<router-link class="link" :to="{path:'/detail',query:{id:'2'}}"></router-link>

@@ -11,6 +11,7 @@ const store = new Vuex.Store({
 		open: false, //侧边菜单打开状态
         docked: true, // 侧边菜单遮罩状态
         topPopup:false, //上方提示条状态
+        isLoading:false,//载入菊花状态
         tips:{ //提示条配置
         	type:'test',
         	info:'test',
@@ -57,9 +58,11 @@ const store = new Vuex.Store({
     		state.event = payload.event
     		if(payload.jumpTo){
     			state.jumpTo =  payload.jumpTo
-    		}
-
-    	}
+    	    }
+    	},
+        loadingToggle:(state)=>{
+            state.isLoading = !state.isLoading
+        }
 	}
 })
 

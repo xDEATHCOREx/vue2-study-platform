@@ -1,7 +1,7 @@
 <template>
 <div class="root">
-   <mu-text-field label="user" hintText="Input User name" v-model="user" labelFloat/><br/>
-   <mu-text-field label="password" hintText="Input password" type="password" v-model="password" labelFloat/><br/>
+   <mu-text-field label="user" hintText="Input User name" v-model.trim="user" labelFloat/><br/>
+   <mu-text-field label="password" hintText="Input password" type="password" v-model.trim="password" labelFloat/><br/>
   <mu-raised-button label="Regist" class="demo-raised-button"  @click="regist" primary/>
    <router-link class="link" :to="{path:'/login'}">
         <mu-flat-button label="Log in" class="demo-flat-button" secondary/>
