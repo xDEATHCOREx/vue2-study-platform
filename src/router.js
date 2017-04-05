@@ -92,6 +92,7 @@ if(user){
 
 const router = new VueRouter({
 	mode: 'history',//这种模式充分利用 history.pushState API 来完成 URL 跳转而无须重新加载页面。
+	base: __dirname,
 	routes,
 	 scrollBehavior (to, from, savedPosition) {
 	 if (to.hash) {
