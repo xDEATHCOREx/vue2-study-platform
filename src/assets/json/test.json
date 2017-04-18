@@ -1,0 +1,50 @@
+{
+    "status": "0",
+    "msg": "ok",
+    "result": {
+        "total": "10",
+        "pagenum": "1",
+        "pagesize": "3",
+        "subject": "1",
+        "type": "Mind",
+        "sort": "normal",
+        "title":"Personality test",
+        "difficulty":"Easy",
+        "time":"40",
+        "list": [
+            {
+                "question": "I understand something better after I",
+                "option1": "try it out.",
+                "option2": "think it through.",
+                "option3": "",
+                "option4": ""
+            },
+            {
+                "question": "I would rather be considered",
+                "option1": "realistic.",
+                "option2": "innovative.",
+                "option3": "",
+                "option4": ""
+
+            },
+            {
+                "question": "When I think about what I did yesterday, I am most likely to get",
+                "option1": "a picture.",
+                "option2": "words.",
+                "option3": "",
+                "option4": "",
+                "answer": "对",
+                "explain": "《公安部令第123号》第六十五条规定：机动车驾驶人在实习期内不得驾驶公共汽车、营运客车或者执行任务的警车、消防车、救护车、工程救险车以及载有爆炸物品、易燃易爆化学物品、剧毒或者放射性等危险物品的机动车；驾驶的机动车不得牵引挂车。",
+                "pic": "",
+                "type": "C1,C2,C3"
+            },
+             {
+                "question": "I tend to",
+                "option1": "understand details of a subject but may be fuzzy about its overall structure.",
+                "option2": "understand the overall structure but may be fuzzy about details.",
+                "option3": "",
+                "option4": ""
+            }
+        ]
+    }
+}

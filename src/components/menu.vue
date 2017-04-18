@@ -4,7 +4,7 @@
   <div v-if="logIn">
 	 <p class="user-name">{{user}}</p> 
   </div>
-  <router-link :to="{path:'/login'}" v-if="!logIn">
+  <router-link class="login-btn" :to="{path:'/login'}" v-if="!logIn">
  	 <mu-raised-button label="Regist/Login" class="demo-raised-button" @click.native="closeMenu()" secondary/>
   </router-link>
       <mu-list @itemClick="docked ? '' : closeMenu()">
@@ -14,13 +14,24 @@
         	</mu-list-item>
         </router-link>
      	<router-link :to="{path:'/personal'}" v-if="logIn">
-        	<mu-list-item title="personal" @click.native="closeMenu()">
+        	<mu-list-item title="Personal" @click.native="closeMenu()">
         	     <mu-avatar slot="left" icon="person" :size="36"/>
         	</mu-list-item>
+        </router-link>
+        <router-link :to="{path:'/questions'}" >
+          <mu-list-item title="Questions" @click.native="closeMenu()">
+               <mu-avatar slot="left" icon="Q" :size="36"/>
+          </mu-list-item>
+        </router-link>
+         <router-link :to="{path:'/exam',query:{id:'1'}}" v-if="logIn" >
+          <mu-list-item title="Personality Test" @click.native="closeMenu()">
+               <mu-avatar slot="left" icon="PT" :size="36"/>
+          </mu-list-item>
         </router-link>
         <mu-list-item v-if="docked" @click.native="closeMenu()" title="Close"/>
       </mu-list>
      	 <mu-raised-button v-if="logIn" label="Log out" class="demo-raised-button log-out-btn" @click.native="closeMenu(),confirm('Confirm to log out?','Log out??','logOut')" /> 
+       {{jumpComfirm}}
   </mu-drawer>
 
 </div>
@@ -39,6 +50,7 @@ export default {
      user:'user',
      logIn:'logIn',
      dialog:'dialog',
+     jumpComfirm:'jumpComfirm'
   }),
   methods: {
     closeMenu (flag) {
@@ -76,6 +88,11 @@ export default {
     	left: 50%;
     	transform: translate(-50%,-50%);
 	 }
+   .login-btn{
+    margin-top: 5px;
+    display: block;
+    text-align: center;
+   }
 </style>
 
 

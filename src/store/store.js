@@ -13,6 +13,7 @@ const store = new Vuex.Store({
         topPopup:false, //上方提示条状态
         isLoading:false,//载入菊花状态
         isScroll:false,
+        isAutomaticLogIn:true,
         scrollDirection:'',
         tips:{ //提示条配置
         	type:'test',
@@ -26,6 +27,7 @@ const store = new Vuex.Store({
         },
         event:'', //记录当前事件
         jumpTo:'',//记录当前要跳转到的位置
+        jumpComfirm:false//表示从当前页跳转是否需要确认
 	},
 	mutations:{
 		setTitle:(state,title)=>{
@@ -67,6 +69,13 @@ const store = new Vuex.Store({
         scrolling:(state)=>{
             state.isScroll = true
         },
+        setJumpConfirm:(state)=>{
+            state.jumpConfirm = true
+        },
+        cancelJumpConfirm:(state)=>{
+            state.jumpConfirm = false
+        }
+
 	}
 })
 

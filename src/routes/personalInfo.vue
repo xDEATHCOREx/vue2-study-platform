@@ -3,7 +3,7 @@
 {{title}}
 <br/>
 <mu-list>
-  <mu-list-item :title="user" disabled>
+  <mu-list-item :title="'User name:'+user" disabled>
     <mu-avatar slot="left" src="/images/uicon.jpg"/>
      <mu-icon slot="right" icon="info"/>
   </mu-list-item>

@@ -9,6 +9,8 @@ import video from './routes/videoCourse.vue'
 import starred from './routes/starred.vue'
 import personalInfo from './routes/personalInfo.vue'
 import exam from './routes/exam.vue'
+import questions from './routes/questions.vue'
+import ask from './routes/ask.vue'
 import store from './store/store'
 Vue.use(VueRouter)
 
@@ -69,6 +71,20 @@ const routes = [
 		}
 	},
 	{
+		path:'/questions',
+		name:'questions',
+		component:questions,
+		
+	},
+	{
+		path:'/ask',
+		name:'ask',
+		component:ask,
+		meta:{
+			requireAuth:true,
+		}		
+	},
+	{
 		path:'/',
 		name:'index',
 		component:index,
@@ -92,10 +108,10 @@ if(user){
 
 const router = new VueRouter({
 	mode: 'history',//这种模式充分利用 history.pushState API 来完成 URL 跳转而无须重新加载页面。
-	base: '/vue2-study-platform',
+	//base: '/vue2-study-platform',
 	routes,
 	 scrollBehavior (to, from, savedPosition) {
-	 if (to.hash) {
+	 if (to.hash) { //如果有锚点#xxx则滚动到制定元素位置，配合a标签暗锚
     	return {
      	 selector: to.hash,
     	}
@@ -110,6 +126,7 @@ router.beforeEach((to,from,next)=>{
 	console.warn(to)
 	if(to.matched.some(r=>r.meta.requireAuth)){
 		if(store.state.user){
+			
 			next();
 		}else{
 			next({
@@ -119,7 +136,8 @@ router.beforeEach((to,from,next)=>{
 		}
 	}
 	else {
-		next();
+		
+		next()
 	}
 });
 
