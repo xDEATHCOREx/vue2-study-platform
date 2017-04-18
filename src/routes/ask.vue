@@ -46,7 +46,7 @@ export default {
       this.$store.commit('setTitle',this.title)
     },
   computed:mapState({
-    jumpComfirm:'jumpComfirm'
+    
   }),
   methods: {
     handleInputOverflow (isOverflow) {
