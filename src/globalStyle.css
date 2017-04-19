@@ -1,0 +1,19 @@
+.starred{
+    color: yellow;
+  }
+.unstar{
+  color: white;
+}
+.mu-content-block,.mu-radio-label,.mu-card-text{
+	text-align: justify;
+}
+.mu-radio-wrapper{
+	width: 95%!important;
+}
+.mu-item-wrapper {
+	height: 100%;
+	width: 100%;
+}
+.mu-item{
+	   width: 89%;
+}

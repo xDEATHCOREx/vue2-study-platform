@@ -16,17 +16,24 @@
       {{exam.tags}}
     </mu-flexbox-item>
   </mu-flexbox>
+  <mu-content-block>
+    For each of the 44 questions below select either "a" or "b" to indicate your answer. Please choose only one answer for each question. If both "a" and "b" seem to apply to you, choose the one that applies more frequently. When you are finished selecting answers to each question please select the submit button at the end of the form.
+  </mu-content-block>
  </mu-paper>
+
  <mu-paper class="sub-title">Single select</mu-paper>
   {{answer}}
 
  <mu-card v-for="(item, index) in list" >
-   <mu-card-text>Question{{index+1}} : {{item.question}}
+   <mu-card-text>Question{{index+1}} : {{item.question}}散落在指尖的阳光，我试着轻轻抓住光影的踪迹，它却在眉宇间投下一片淡淡的阴影。调皮的阳光掀动了四月的心帘，温暖如约的歌声渐起。似乎在诉说着，我也可以在漆黑的角落里，找到阴影背后的阳光，找到阳光与阴影奏出和谐的旋律。我要用一颗敏感赤诚的心迎接每一缕滑过指尖的阳光！
   </mu-card-text>
-     <mu-radio v-if="item.option1" :label="'A、'+item.option1" :name="questions[index]" nativeValue="A" v-model="answer[index+1]" class="demo-radio"/> <br/>
-  <mu-radio v-if="item.option2" :label="'B、'+item.option2" :name="questions[index]" nativeValue="B" v-model="answer[index+1]"  class="demo-radio"/> <br/>
-  <mu-radio v-if="item.option3" :label="'C、'+item.option3" :name="questions[index]" nativeValue="C" v-model="answer[index+1]"  class="demo-radio"/> <br/>
-  <mu-radio v-if="item.option4" :label="'D、'+item.option4" :name="questions[index]" nativeValue="D" v-model="answer[index+1]"  class="demo-radio"/>  <br/>
+     <mu-radio v-if="item.option1" :label="'A、'+item.option1" :name="questions[index]" nativeValue="A" v-model="answer[index+1]" class="demo-radio first"/> 
+  <br v-if="item.option1" />
+  <mu-radio v-if="item.option2" :label="'B、'+item.option2" :name="questions[index]" nativeValue="B" v-model="answer[index+1]"  class="demo-radio"/> 
+  <br v-if="item.option2" />
+  <mu-radio v-if="item.option3" :label="'C、'+item.option3" :name="questions[index]" nativeValue="C" v-model="answer[index+1]"  class="demo-radio"/> 
+  <br v-if="item.option3" />
+  <mu-radio v-if="item.option4" :label="'D、'+item.option4" :name="questions[index]" nativeValue="D" v-model="answer[index+1]"  class="demo-radio" />  <br v-if="item.option4" />
  </mu-card>
 
  <mu-card>
@@ -133,7 +140,6 @@ import testJson from '../assets/json/test.json'
 <style lang="css" scoped>
   .demo-paper{
      display: block;
-  height: 200px;
   width: 95%;
   margin: 20px auto;
   text-align: center;
@@ -164,16 +170,21 @@ import testJson from '../assets/json/test.json'
   .mu-card{
     margin:10px;
   }
-  .mu-radio{
-    margin-left: 15px;
-    display: block;
+  .mu-radio.first{/* 多一个空格都不行 */
+    margin-top: 0px;
   }
 
+  .mu-radio{
+    margin-left: 15px;
+    margin-top: 35px;
+    display: block;
+  }
+  
   .mu-radio-wrapper{
     position:relative;
   }
 
-  .mu-radio-label{
+  .label{
     position:absolute;
     top: 0px;
   }

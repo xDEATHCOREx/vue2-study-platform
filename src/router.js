@@ -10,6 +10,7 @@ import starred from './routes/starred.vue'
 import personalInfo from './routes/personalInfo.vue'
 import exam from './routes/exam.vue'
 import questions from './routes/questions.vue'
+import question from './routes/question.vue'
 import ask from './routes/ask.vue'
 import store from './store/store'
 Vue.use(VueRouter)
@@ -77,6 +78,12 @@ const routes = [
 		
 	},
 	{
+		path:'/question',
+		name:'question',
+		component:question,
+		
+	},
+	{
 		path:'/ask',
 		name:'ask',
 		component:ask,
@@ -103,6 +110,7 @@ if(user){
 	console.info("user existed,automatic logging in...")
 	store.commit('logIn',user)
 }else{
+	store.commit('logOut')//清除登录态以防bug
 	console.info("user non-exist,please log in")
 }
 

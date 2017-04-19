@@ -84,6 +84,7 @@ import preview from './preview.vue'
           scrollbar:'.swiper-scrollbar',
           mousewheelControl : true,
           observeParents:true,
+          //loop : true,//loop模式：会在原本slide前后复制若干个slide并在合适的时候切换，让Swiper看起来是循环的。 【bug：循环后页面的链接跳转会重新加载，暂时不用】
           // if you need use plugins in the swiper, you can config in here like this
           // 如果自行设计了插件，那么插件的一些配置相关参数，也应该出现在这个对象中，如下debugger
           debugger: true,

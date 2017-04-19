@@ -12,7 +12,7 @@
    </div>
     <br/>
    <mu-raised-button label="Login" class="demo-raised-button" @click="login" :disabled="disabled" primary/>
-   <router-link class="link" :to="{path:'/regist'}">
+   <router-link class="link" :to="{path:'/regist'}" replace>
        <mu-flat-button label="Regist" class="demo-flat-button" secondary/>
    </router-link>
 
