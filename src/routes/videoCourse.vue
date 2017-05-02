@@ -1,6 +1,6 @@
 <template>
 <div>
- <video src="../../src/assets/test.mp4"  width="100%" height="100%"  id = "container"  controls>Video player not available.</video>
+ <video src="../../src/assets/test.mp4"  width="100%"  id = "container"  controls>Video player not available.</video>
 </div>
 </template>
 

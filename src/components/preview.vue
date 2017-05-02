@@ -4,7 +4,7 @@
     <mu-sub-header>Courses</mu-sub-header>
     <mu-grid-tile v-for="tile, index in list" :key="index">
     <router-link class="link" :to="{path:'/detail',query:{id:'4'}}">
-      <img src="../assets/img/a5.jpg"/>
+      <img src="../assets/img/a4.jpg"/>
     </router-link>
       
       <span slot="title">{{tile.title}}</span>
@@ -46,7 +46,9 @@
 
 .gridlist-demo{
   overflow-y: auto;
+  width: 100%;
 }
+
 img{
   width: 100%;
   height: 100%;

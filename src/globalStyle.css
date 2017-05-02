@@ -1,3 +1,42 @@
+@font-face {
+font-family: 'Material Icons';
+font-style: normal;
+font-weight: 400;
+src: local('Material Icons'),
+local('MaterialIcons-Regular'),
+url(./assets/font/MaterialIcons-Regular.woff) format('woff');
+}
+
+.material-icons {
+font-family: 'Material Icons';
+font-weight: normal;
+font-style: normal;
+font-size: 24px; /* Preferred icon size */
+display: inline-block;
+width: 1em;
+height: 1em;
+line-height: 1;
+text-transform: none;
+
+/* Support for all WebKit browsers. */
+-webkit-font-smoothing: antialiased;
+/* Support for Safari and Chrome. */
+text-rendering: optimizeLegibility;
+
+/* Support for Firefox. */
+-moz-osx-font-smoothing: grayscale;
+
+/* Support for IE. */
+font-feature-settings: 'liga';
+}
+html,body,#app{
+	height: 100%
+}
+#app{
+	padding-top: 56px;
+	padding-bottom: 36px;
+	overflow: auto;
+}
 .starred{
     color: yellow;
   }
@@ -15,5 +54,13 @@
 	width: 100%;
 }
 .mu-item{
-	   width: 89%;
+	   width: 88%;
+	  
+}
+.mu-card-header-title {
+    padding-right: 40px!important;
+}
+
+.item-wrapper .mu-item{
+	 min-height: 65px;
 }

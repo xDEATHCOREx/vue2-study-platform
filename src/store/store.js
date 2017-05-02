@@ -7,6 +7,7 @@ const store = new Vuex.Store({
 	state:{
 		title:'Index', //顶部导航条的标题
 		user:'', //登录用户名
+        userId:'',
 		logIn:false, //用户登录态
 		open: false, //侧边菜单打开状态
         docked: true, // 侧边菜单遮罩状态
@@ -15,6 +16,7 @@ const store = new Vuex.Store({
         isScroll:false,
         isAutomaticLogIn:true,
         scrollDirection:'',
+        score:'',//用户测试的得分情况
         tips:{ //提示条配置
         	type:'test',
         	info:'test',
@@ -27,7 +29,8 @@ const store = new Vuex.Store({
         },
         event:'', //记录当前事件
         jumpTo:'',//记录当前要跳转到的位置
-        jumpComfirm:false//表示从当前页跳转是否需要确认
+        jumpConfirm:false,//表示从当前页跳转是否已经确认
+        userHeadUrl:''
 	},
 	mutations:{
 		setTitle:(state,title)=>{
@@ -39,9 +42,13 @@ const store = new Vuex.Store({
 			state.logIn = true
 			console.info("logged in")
 		},
+        recordUserId:(state,userId)=>{
+            state.userId = userId
+        },
 		logOut:(state)=>{
 			localStorage.removeItem('user')
 			state.user = ''
+            state.userId= ''
 			state.logIn = false
 		},
 		toggle:(state,flag)=>{
@@ -63,6 +70,9 @@ const store = new Vuex.Store({
     			state.jumpTo =  payload.jumpTo
     	    }
     	},
+        dialogCancel:(state)=>{
+            state.dialog.show = false
+        },
         loadingToggle:(state)=>{
             state.isLoading = !state.isLoading
         },
@@ -74,8 +84,16 @@ const store = new Vuex.Store({
         },
         cancelJumpConfirm:(state)=>{
             state.jumpConfirm = false
+        },
+        recordScore:(state,score)=>{
+            state.score = score
+        },
+        clearScore:(state)=>{
+            state.score = ''
+        },
+        userHeadUpdate:(state,url)=>{
+           state.userHeadUrl = url 
         }
-
 	}
 })
 

@@ -10,6 +10,8 @@
    <mu-text-field label="identifying code" hintText="Input code"  v-model.trim="code" labelFloat/>
    <img class="identifying-code" :src="codeSrc" height="34" width="108" @click="refresh">
    </div>
+    <mu-switch label="Auto log" class="demo-switch" v-model="auto"/>
+    <br/>
     <br/>
    <mu-raised-button label="Login" class="demo-raised-button" @click="login" :disabled="disabled" primary/>
    <router-link class="link" :to="{path:'/regist'}" replace>
@@ -21,6 +23,7 @@
 
 <script>
 import {mapState} from 'vuex'
+import {eventHub} from './Event-hub.js'
 export default {
     data () {
       return {
@@ -28,6 +31,7 @@ export default {
         user: 'test',
         password:'test',
         code:'',
+        auto:true,
         passwordType:'password',
         disabled:false,
         visibility:'visibility_off',
@@ -49,44 +53,22 @@ export default {
         setTimeout(()=>{ //短期禁用按钮，防刷
           this.disabled = false
         },1000)
-        let data = { //ajax
-                user_account: 'test',
-                user_password: 'test',
+        let data = { 
+                user_account: this.user,
+                user_password: this.password,
                 login_code:this.code,
-                auto: 0
+                auto: this.auto?"1":"0",
         }
 
-        /*this.axios({
-          url: '/user/login.action',
-          method: 'post',
-          data: {
-                user_account: 'test',
-                user_password: 'test',
-                login_code:this.code,
-                auto: 0
-          },
-          transformRequest: [function (data) {
-            // Do whatever you want to transform the data
-            let ret = ''
-            for (let it in data) {
-              ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
-            }
-            return ret
-          }],
-        })
-        .then(res =>{
-              console.warn(res.data.success)
-            })
-            .catch(err =>{
-              console.warn(err)
-            })*/
-        this.axios.post('/user/login.action',data)
+        /*this.axios.post('/user/login.action',dat)
             .then(res =>{
               console.warn(res)
+               this.$store.commit('logIn',this.user)      
+              this.$store.commit('topPopupToggle',"Login success!")
             })
             .catch(err =>{
               console.warn(err)
-            })    
+            })    */
 
 
 
@@ -98,15 +80,54 @@ export default {
             //判断验证码正误
           //进行调用登录接口验证的逻辑编写（todo），先进行前端检查信息是否符合要求，再post到后端验证。
           //下面是接口返回验证成功的操作      
-          
-         this.$store.commit('logIn',this.user)      
-         this.$store.commit('topPopupToggle',"Login success!")
-          //重定向到登录拦截前的页面
-          let redirect = decodeURIComponent(this.$route.query.redirect || '/')//取得由router.js中配置好的登录后跳转路由的query参数
-            this.$router.push({
-              path: redirect
+           this.axios({
+              url: 'http://18-newbee.top/user/login.action',
+              method: 'post',
+              withCredentials: true,
+              data: {
+                    user_account: this.user,
+                    user_password: this.password,
+                    login_code:this.code,
+                    auto: this.auto?"1":"0",
+              },
             })
-          }
+            .then(res =>{
+                  console.warn(res.data.success)
+                  if(res.data.success){
+                    this.$store.commit('logIn',this.user)      
+                    this.$store.commit('topPopupToggle',"Login success!")
+                    //重定向到登录拦截前的页面
+                    let redirect = decodeURIComponent(this.$route.query.redirect || '/')//取得由router.js中配置好的登录后跳转路由的query参数
+                    this.$router.push({
+                      path: redirect
+                    })
+                  }else{
+                    console.warn(res)
+                    // 根据error code进行别的操作（验证码错误则更换验证码）
+                    switch (res.data.code){
+                      case "1" :
+                        console.warn("Login fail")
+                        this.$store.commit('topPopupToggle',"Login fail!")
+                        this.refresh()
+                        break
+                      case "2" :
+                        console.warn("User name or password incorrect")
+                        this.$store.commit('topPopupToggle',"User name or password incorrect!")
+                        this.refresh()
+                        break
+                      case "3" :
+                        console.warn("Wrong code")
+                        this.$store.commit('topPopupToggle',"Wrong code!")
+                        this.refresh()
+                        break  
+                      default:
+                    }
+                  }
+                })
+            .catch(err =>{
+                  console.warn(err)
+              })             
+            }
           else{//提示验证码不能为空
             this.$store.commit('topPopupToggle',"Identifying code must be filled!")
           }
@@ -149,6 +170,7 @@ export default {
     transform: translate(-50%,-50%);
     text-align: center;
     margin:0;
+    height: auto;
   }
   .password-input{
     position: relative;

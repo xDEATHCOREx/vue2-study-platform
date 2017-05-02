@@ -1,21 +1,21 @@
 <template>
 <div class="personal-root">
 <mu-card class="personal-card">
-  <mu-card-header :title="user" subTitle="sub title">
-    <mu-avatar src="/images/uicon.jpg" slot="avatar"/>
-      <mu-icon-button  id="personal-icon" icon="android" @click="jump('/personalInfo')"/>   
+  <mu-card-header :title="userInfo.userNickname" :subTitle="userInfo.userSignature">
+    <mu-avatar :src="userInfo.userPic" slot="avatar"/>
+      <mu-icon-button  id="personal-icon" icon="account_box" @click="jump('/personalInfo')"/>  
   </mu-card-header>
 </mu-card>
   <mu-list class="personal-list">
-    <mu-list-item title="Inbox">
-      <mu-icon slot="left" value="inbox"/>
+    <mu-list-item title="My questions" @click="jump('/questions','tab3')">
+      <mu-icon slot="left" value="help"/>
     </mu-list-item>
     <mu-divider />
     <mu-list-item title="Starred" @click="jump('/starred')" >
       <mu-icon slot="left" value="grade"/>
     </mu-list-item>
     <mu-divider />
-    <mu-list-item title="Sent mail">
+    <mu-list-item title="Change password" @click="changePassword()">
       <mu-icon slot="left" value="send"/>
     </mu-list-item>
     <mu-divider />
@@ -24,33 +24,58 @@
     </mu-list-item>
   </mu-list>
   <mu-divider />
- 
+ <change :open="open"></change>
 </div>
 </template>
 
 <script>
 import {mapState} from 'vuex'
+import {eventHub} from './Event-hub.js'
+import change from './passwordChange.vue'
 	export default {
     data () {
       return {
         title:'personal',
+        userInfo:{},
+        open:false,
       }
     },
     mounted(){
       //更改header的title，实际上是改变store里的值
       this.$store.commit('setTitle',this.title)
+      //应该每次读取后端的信息 
+      this.getInfo()
+      eventHub.$on('close',this.closeAction)
     },
     computed:mapState({
      user:'user'
     }),
     methods:{
-      jump(route){
+      getInfo(){
+        var self = this
+        this.axios.get('/user/getInfo.action')
+        .then(function (res) {
+          self.userInfo = res.data.object
+        })
+        .catch(function (err) {
+          console.log(err)
+        })
+      },
+      jump(route,query){
         this.$router.push({
-              path:route
+              path:route,
+              query:{target:query}
             })
+      },
+      changePassword(){
+        this.open = true
+      },
+      closeAction(key){
+        this.open = key
       }
     },
     components:{
+      'change':change
     },
   }
 </script>
@@ -71,4 +96,5 @@ import {mapState} from 'vuex'
     margin: 0px auto;
     width: 95%;
   }
+
 </style>

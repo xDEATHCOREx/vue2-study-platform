@@ -1,12 +1,12 @@
 <template>
-<div>
+<div class="index-root">
 	 <swiper :options="swiperOption" ref="mySwiper" class="swiper">
     <!-- slides -->
     <swiper-slide class="slide" id="slide1" >
-    	<router-link class="link" :to="{path:'/exam',query:{id:'1'}}"></router-link>
+    	<router-link class="link" :to="{name:'exam',query:{id:'1'}}"></router-link>
     </swiper-slide>
     <swiper-slide class="slide" id="slide2">
-    	<router-link class="link" :to="{path:'/detail',query:{id:'2'}}"></router-link>
+    	<router-link class="link" :to="{name:'exam',query:{id:'3'}}"></router-link>
     </swiper-slide>
     <swiper-slide class="slide" id="slide3">
     	<router-link class="link" :to="{path:'/detail',query:{id:'3'}}"></router-link>
@@ -16,8 +16,8 @@
     </swiper-slide>
     <!-- Optional controls -->
     <div class="swiper-pagination"  slot="pagination"></div>
-    <div class="swiper-button-prev" slot="button-prev"></div>
-    <div class="swiper-button-next" slot="button-next"></div>
+    <div class="swiper-button-prev swiper-button-white" slot="button-prev"></div>
+    <div class="swiper-button-next swiper-button-white" slot="button-next"></div>
     <div class="swiper-scrollbar"   slot="scrollbar"></div>
   </swiper>
   <preview :list="list"></preview>
@@ -121,6 +121,9 @@ import preview from './preview.vue'
 </script>
 
 <style lang="css" scoped>
+.index-root{
+  overflow: visible;
+}
 	.slide{
 		width: 100%;
 		height: 100%;	

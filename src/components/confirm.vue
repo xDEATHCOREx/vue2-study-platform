@@ -26,12 +26,7 @@ export default {
   }),
   methods: {
     cancel(){
-      this.$store.commit('dialogToggle',{//关闭确认框并清除相关信息
-        info : '',
-        title:'',
-        event : '',
-        jumpTo :''
-      })
+      this.$store.commit('dialogCancel')
       console.info("canceled")
     },
     confirm () {
@@ -40,22 +35,31 @@ export default {
         //this.$store.commit(this.event)//执行传入的mutation
       }
       if(this.event == 'logOut'){ //如果是确认登出则重定向至首页
-         this.$store.commit(this.event)//执行传入的mutation
-        this.$store.commit('topPopupToggle',"Log out success!")
-        this.$router.push({ 
-            path : '/'
-          })
+        this.axios.post('/user/logout.action')//登出请求提交到后端
+            .then(res =>{
+              console.warn(res)
+              this.$store.commit(this.event)//执行传入的mutation
+              this.$store.commit('topPopupToggle',"Log out success!")
+              this.$router.push({ 
+                path : '/'
+              })
+            })
+            .catch(err =>{
+              console.warn(err)
+            })   
+        
       }else if(this.event =='jump'){
-        this.$router.push({ 
-            path : this.jumpTo
-          })
+        this.$store.commit('setJumpConfirm')
+          setTimeout(()=>{
+            this.$store.commit('cancelJumpConfirm')
+          },1000)
+        if(this.jumpTo){
+          this.$router.push({ 
+              path : this.jumpTo
+            })
+        }
       }
-      this.$store.commit('dialogToggle',{//关闭确认框并清除相关信息
-        info : '',
-        title:'',
-        event : '',
-        jumpTo :''
-      })  
+      this.$store.commit('dialogCancel')  
     }
   }
 }

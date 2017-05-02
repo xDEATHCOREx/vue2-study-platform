@@ -1,6 +1,6 @@
 var path = require('path')
 var webpack = require('webpack')
-
+var HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
   entry: './src/main.js',
   output: {
@@ -8,6 +8,7 @@ module.exports = {
     publicPath: 'dist/',
     filename: 'build.js'
   },
+  plugins: [new HtmlWebpackPlugin()],
   module: {
     rules: [
       {
@@ -60,7 +61,8 @@ module.exports = {
   },
   devServer: {
     historyApiFallback: true,
-    noInfo: true
+    noInfo: true,
+    inline:true
   },
   performance: {
     hints: false

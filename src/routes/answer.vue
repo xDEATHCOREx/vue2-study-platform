@@ -1,36 +1,16 @@
 <template>
-<div class="ask-root">
- <mu-text-field 
-   label="title" 
-   hintText="say it briefly" 
-   v-model.trim="questionTitle" 
-   labelFloat 
-   fullWidth
-   :errorText="inputErrorText"
-    @textOverflow="handleInputOverflow" 
-    :maxLength="30"
-  />
+<div class="answer-root">
   <mu-text-field 
     label="detail" 
-    hintText="Describe the question" 
-    v-model="questionDetail"
+    hintText="Answer the question" 
+    v-model="answerDetail"
     labelFloat 
    fullWidth
     multiLine 
     :rows="3" 
     :rowsMax="15"/>
 
-  <textarea rows="2" cols="36" wrap="hard" v-model="text"></textarea> 
-
-      <mu-dropDown-menu :value="value" @change="handleChange" autoWidth>
-      <mu-menu-item value="1" title="星期一testtesttest"/>
-      <mu-menu-item value="2" title="星期二"/>
-      <mu-menu-item value="3" title="星期三"/>
-      <mu-menu-item value="4" title="星期四"/>
-      <mu-menu-item value="5" title="星期五"/>
-      <mu-menu-item value="6" title="星期六"/>
-      <mu-menu-item value="7" title="星期日"/>
-      </mu-dropDown-menu>
+  <textarea rows="2" cols="36" wrap="hard" v-model="answerDetail"></textarea> 
 
   <mu-raised-button 
     label="Submit" 
@@ -42,36 +22,45 @@
     :disabled="disabled"/>
     <br/>
     <br/> 
-   <upload></upload>
-
-     
+    
 </div>
 </template>
 
 <script>
 import {mapState} from 'vuex'
 
-import upload from '../components/upload.vue'
 export default {
   data () {
     return {
        value:'1',
-       title:'Asking',
-       questionTitle:'',
-       questionDetail:'',
+       title:'Answering',
+       answerDetail:'',
        inputErrorText: '',
        text:'',
-       disabled:false,
+       disabled:true,
     }
   },
   mounted(){
       //更改header的title，实际上是改变store里的值
       this.$store.commit('setTitle',this.title)
     },
-  computed:mapState({
-    jumpConfirm:'jumpConfirm',
-    logIn:'logIn'
-  }),
+  computed:{
+    ...mapState({
+      jumpConfirm:'jumpConfirm',
+      logIn:'logIn'
+    })
+  },
+  watch:{
+    answerDetail:{
+      handler:function(val,oldVal){
+        if(val==''){
+          this.disabled = true
+        }else{
+          this.disabled = false
+        }
+      }
+    }
+  },
   methods: {
     handleInputOverflow (isOverflow) {
       this.inputErrorText = isOverflow ? 'Over length' : ''
@@ -87,10 +76,10 @@ export default {
         },1000)
       this.$store.commit('loadingToggle')//转菊花
       var formData = new FormData()
-      formData.append("title", this.questionTitle)
-      formData.append("question_text", this.questionDetail)
+      formData.append("titleId", this.$route.query.titleId)
+      formData.append("answer_text", this.answerDetail)
       this.axios({//上传信息接口
-              url: '/community/saveQues.action',
+              url: '/community/saveAnsr.action',
               method: 'post',
               data: formData,
               transformRequest: [function (data) {//这里重置http.js中全局的transform
@@ -104,8 +93,9 @@ export default {
               if(res.data.success){              
                 //弹出提示
                 this.$store.commit('topPopupToggle',"Saved！")
-                this.$router.replace({ 
-                  path: '/questions' 
+                this.$router.push({ 
+                  path: '/question' ,
+                  query:{id:this.$route.query.titleId}
                 })
               }else{//其他情况
                 this.$store.commit('topPopupToggle',"Failed!")
@@ -126,7 +116,7 @@ export default {
     }
   },
   components:{
-     'upload':upload,
+
     },
   beforeRouteLeave (to, from, next) {//可用于编写在离开此路由前的逻辑
       //之后可能还要加个提交态，判断是提交后跳转还是非提交跳转
@@ -150,7 +140,7 @@ export default {
 
 <style type="text/css" scoped>	
 
-.ask-root{
+.answer-root{
   padding: 20px 20px 36px 20px;
   text-align: center;
 }

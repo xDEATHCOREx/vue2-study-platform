@@ -26,7 +26,7 @@ export default {
       if (val) {
         setTimeout(() => { //提示延时消失的时间
          this.$store.commit('topPopupToggle','')
-        }, 1000)
+        }, 2000)
       }
     }
   }

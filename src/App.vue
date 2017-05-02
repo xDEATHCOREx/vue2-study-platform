@@ -3,7 +3,7 @@
       <popup></popup>
        <confirm></confirm>
        <loading></loading>
-      <top-header ></top-header>
+      <top-header></top-header>
      <transition>
       <router-view class="view"></router-view>
       </transition>
@@ -35,6 +35,7 @@ export default{
   html,body{
   }
   .view{
-    margin-top: 56px;
+    height: 100%;
+
   }
 </style>

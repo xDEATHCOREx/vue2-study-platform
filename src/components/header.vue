@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="header-root">
   <mu-appbar :title="title" class="header-nav" :class="{hidden : isScroll}" >
   	<mu-icon-button icon='menu' slot="left" label="undocked drawer" @click="showMenu(true)"/>
   	<mu-icon-button icon='expand_more' slot="right"/>
@@ -59,13 +59,17 @@ export default {
 </script>
 
 <style lang="css" scoped>
+.header-root{
+  position: relative;
+
+}
 	.demo-raised-button{
 	
 	}
 	.header-nav{
 		position: fixed;
 		top: 0;
-		z-index:99;
+		z-index:100;/*保持最大除了遮罩层和侧滑菜单*/
 		transition: top .5s;
 	}
 	.hidden{

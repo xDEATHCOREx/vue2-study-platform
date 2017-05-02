@@ -7,7 +7,14 @@ axios.defaults.timeout = 10000
 //axios.defaults.headers = {'Content-Type':'application/x-www-form-urlencoded'}
 //axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 //axios.defaults.baseURL = 'http://18-newbee.top'
-
+axios.defaults.transformRequest = [function (data) {
+                // Do whatever you want to transform the data
+                let ret = ''
+                for (let it in data) {
+                  ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+                }
+                return ret
+              }]
 //http request 拦截器
 axios.interceptors.request.use(
 	config => {

@@ -1,42 +1,44 @@
 <template>
-<div>
+<div class="menu-root">
  <mu-drawer  :open="open" :docked="docked" @close="closeMenu()">
-  <div v-if="logIn">
-	 <p class="user-name">{{user}}</p> 
+  <div  class="menu-top" v-if="logIn" >
+    <img class="user-head center-horizontal" :src="userInfo.userPic">
+	  <p class="user-name center-horizontal">{{userInfo.userNickname}}</p> 
   </div>
-  <div v-else>
-    <p class="user-name">Login please❤</p> 
+  <div class="menu-top" v-else>
+    <!-- <img class="user-head center-horizontal" src="http://18-newbee.top/img/head/20170425/10001.jpg"> -->
+    <p class="user-name center-horizontal unlog">Login please❤</p> 
   </div>
-  <router-link class="login-btn" :to="{path:'/login'}" v-if="!logIn">
+  <router-link class="login-btn center-horizontal" :to="{path:'/login'}" v-if="!logIn">
  	 <mu-raised-button label="Regist/Login" class="demo-raised-button" @click.native="closeMenu()" secondary/>
   </router-link>
       <mu-list @itemClick="docked ? '' : closeMenu()">
         <router-link :to="{path:'/'}">
-        	<mu-list-item title="Index page" @click.native="closeMenu()">
+        	<mu-list-item class="menu-item" title="Index page" @click.native="closeMenu()">
         		 <mu-avatar slot="left" icon="home" :size="36" backgroundColor="purple600"/>
         	</mu-list-item>
         </router-link>
         <mu-divider />
         <router-link :to="{path:'/questions'}" >
-          <mu-list-item title="Questions" @click.native="closeMenu()">
-               <mu-avatar slot="left" icon="Q" :size="36" backgroundColor="green600"/>
+          <mu-list-item class="menu-item" title="Questions" @click.native="closeMenu()">
+               <mu-avatar slot="left" icon="help" :size="36" backgroundColor="green600"/>
           </mu-list-item>
         </router-link>
         <mu-divider />
      	<router-link :to="{path:'/personal'}" v-if="logIn">
-        	<mu-list-item title="Personal" @click.native="closeMenu()">
+        	<mu-list-item class="menu-item" title="Personal" @click.native="closeMenu()">
         	     <mu-avatar slot="left" icon="person" :size="36" backgroundColor="blue600"/>
         	</mu-list-item>
         </router-link>
         <mu-divider />
           <router-link :to="{path:'/starred'}" v-if="logIn">
-          <mu-list-item title="Star" @click.native="closeMenu()">
+          <mu-list-item class="menu-item" title="Star" @click.native="closeMenu()">
                <mu-avatar slot="left" icon="star" :size="36" backgroundColor="yellow600"/>
           </mu-list-item>
         </router-link>
         <mu-divider />
          <router-link :to="{path:'/exam',query:{id:'1'}}" v-if="logIn" >
-          <mu-list-item title="Personality Test" @click.native="closeMenu()">
+          <mu-list-item class="menu-item" title="Personality Test" @click.native="closeMenu()">
                <mu-avatar slot="left" icon="PT" :size="36" backgroundColor="red600"/>
           </mu-list-item>
         </router-link>
@@ -52,10 +54,17 @@
 
 <script>
 import {mapState} from 'vuex'
+import {eventHub} from './Event-hub.js'
 export default {
   data () {
     return {
+      userInfo:{}
     }
+  },
+  mounted(){
+    //应该每次读取后端的信息 
+      eventHub.$on('update',this.getInfo)
+    
   },
   computed:mapState({
      open: 'open',
@@ -63,9 +72,32 @@ export default {
      user:'user',
      logIn:'logIn',
      dialog:'dialog',
-     jumpComfirm:'jumpComfirm'
+     jumpComfirm:'jumpComfirm',
+     userHeadUrl:'userHeadUrl'
   }),
+  watch:{
+    logIn:function(val,oldVal){ //监视登录态，及时异步请求getinfo
+      if(val == true){
+        eventHub.$emit('update')
+        console.warn('!!!!')
+      }else{
+         console.warn('???')
+      }
+    }
+  },
   methods: {
+    getInfo(){
+        var self = this
+        this.axios.get('/user/getInfo.action')
+        .then(function (res) {
+          self.userInfo = res.data.object
+          self.$store.commit('userHeadUpdate',self.userInfo.userPic)
+           self.$store.commit('recordUserId',self.userInfo.userId)
+        })
+        .catch(function (err) {
+          console.log(err)
+        })
+      },
     closeMenu (flag) {
       console.info("close")
       this.$store.commit('toggle',flag)
@@ -89,11 +121,35 @@ export default {
 </script>
 
 <style type="text/css" scoped>	
+.menu-root{
+}
+.menu-top{
+  position: relative;
+  background-color: #7e57c2;
+  height: 150px;
+}
+.menu-item{
+  padding-top: 10px;
+}
+.user-head{
+  width: 80px;
+  height: 80px;
+  top: 60px;
+  box-shadow: 0 3px 10px rgba(0,0,0,.156863), 0 3px 10px rgba(0,0,0,.227451);
+}
 .user-name{
 	 	text-align: center;
 	 	color: #123;
-	 	font-size: 25px;
+	 	font-size: 20px;
+    width: 256px;
+    margin: 0 auto;
+    color: #fff;
+    bottom: -5px;
+   /*  line-height: 150px; *//*与父div height保持一致*/
 	 }
+   .unlog{
+    bottom: 30%;
+   }
 	 .log-out-btn{
 	 	position: absolute;
     	bottom: 0%;
@@ -102,17 +158,19 @@ export default {
       background-color: #d1c4e9;
 	 }
    .login-btn{
-    position: absolute;
-      bottom: 0%;
-      left: 50%;
-      transform: translate(-50%,-50%);
+    bottom: 0%;
     display: block;
     text-align: center;
    }
-   .mu-list{
-    position: absolute;
-    top: 87px;
-   }
+.mu-list{
+  position: absolute;
+  top: 150px;
+}
+.center-horizontal{
+  position: absolute;   
+      left: 50%;
+      transform: translate(-50%,-50%);
+}
 </style>
 
 
