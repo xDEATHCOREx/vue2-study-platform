@@ -64,3 +64,7 @@ html,body,#app{
 .item-wrapper .mu-item{
 	 min-height: 65px;
 }
+.learning-root{
+	padding-bottom: 20px;
+    overflow: auto;
+}

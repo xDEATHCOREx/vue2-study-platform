@@ -43,6 +43,12 @@
           </mu-list-item>
         </router-link>
         <mu-divider />
+        <router-link :to="{path:'/addCourseInfo'}"  >
+          <mu-list-item class="menu-item" title="添加课程" @click.native="closeMenu()">
+               <mu-avatar slot="left" icon="A" :size="36" backgroundColor="pink600"/>
+          </mu-list-item>
+        </router-link>
+        <mu-divider />
         <mu-list-item v-if="docked" @click.native="closeMenu()" title="Close"/>
       </mu-list>
      	 <mu-raised-button v-if="logIn" label="Log out" class="demo-raised-button log-out-btn" @click.native="closeMenu(),confirm('Confirm to log out?','Log out??','logOut')" /> 

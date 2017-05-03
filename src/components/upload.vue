@@ -1,7 +1,7 @@
 <template>
 <div>
  <img id="preview" v-if="src" :src='src'/>
-  <mu-raised-button  id="upload-btn " label="Upload" class="demo-raised-button" @click="toUpload"/>
+  <mu-raised-button  id="upload-btn " label="上传图片" class="demo-raised-button" @click="toUpload"/>
    <input id="input" type="file" accept="image/*"  @change="getInfo">
 </div>
 
@@ -26,6 +26,7 @@ import lrz from 'lrz'
             // 把处理的好的图片给用户看看呗
             self.src = rst.base64;
             console.warn("doneeee")
+            self.$emit("upload",rst.file,rst.origin.name)
             return rst;
           })
 

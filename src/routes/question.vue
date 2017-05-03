@@ -7,8 +7,8 @@
      </mu-avatar>
   </mu-card-header>
   <mu-card-text v-html="formattedQuestionText">
-
   </mu-card-text>
+    <img class="ask-pic" v-if="data.communityAsk.askPic" :src="data.communityAsk.askPic">
   <mu-card-actions >
     <mu-flat-button  icon="arrow_upward" label="12"/>
     <mu-flat-button icon="arrow_downward" label="5"/>
@@ -22,6 +22,8 @@
     </mu-icon-menu>
   </mu-card-actions>
 </mu-card>
+
+
 <comment :answerData="data.communityAnswer"></comment>
 
 
@@ -272,7 +274,14 @@ import comment from '../components/comment.vue'
 
   overflow: auto;
 }
-
+.ask-pic{
+    width: 92%;
+    max-width: 100%;
+    display: block;
+    vertical-align: top;
+    margin: 0 auto;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.656863), 0 3px 10px rgba(0,0,0,.227451);
+}
 .btn{
      width: 50%;
     position: fixed;

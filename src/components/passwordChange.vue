@@ -7,7 +7,7 @@
       hintText="Input your new password" 
       type="password" 
       v-model.trim="password" 
-      @blur="isPasswordRight"
+      @blur="isPasswordSame"
       labelFloat/>
     <mu-text-field 
       class="text-field" 
@@ -48,6 +48,65 @@ export default {
         this.equal = false
       }
     },
+    isPasswordSame(){
+      let formData = new FormData()
+          formData.append("password", this.password)
+           this.axios({//上传信息接口
+              url: '/user/pswd/same.action',
+              method: 'post',
+              data: formData,
+              transformRequest: [function (data) {//这里重置http.js中全局的transform
+                // Do whatever you want to transform the data
+                return data;
+              }],
+            })
+            .then(res=>{
+              if(res.data.success){
+                if(res.data.object){
+                  //与原密码相同
+                   this.$store.commit('topPopupToggle',"不能和原密码相同！")
+                }else{
+                  //与原密码不同
+                   this.$store.commit('topPopupToggle',"新密码可用！")
+                }
+              }else{
+                this.$store.commit('topPopupToggle',"查询失败 "+res.data.result_msg)
+              }
+            })
+            .catch(err =>{
+              console.warn(err)
+            })  
+    },
+    editPassword(){
+      let formData = new FormData()
+          formData.append("password", this.password)
+           this.axios({//上传信息接口
+              url: '/user/updatePswd.action',
+              method: 'post',
+              data: formData,
+              transformRequest: [function (data) {//这里重置http.js中全局的transform
+                // Do whatever you want to transform the data
+                return data;
+              }],
+            })
+            .then(res=>{
+              if(res.data.success){
+                //调用修改密码的接口
+                this.$store.commit('topPopupToggle',"Password changed!")
+              }else{
+                this.$store.commit('topPopupToggle',res.data.result_msg)
+              }
+              this.password = ''
+              this.passwordConfirm = ''
+              this.errorText = ''
+              eventHub.$emit('close',false)
+            })
+            .catch(err =>{
+              console.warn(err)
+            })  
+
+         
+    },
     close (key) {
       this.password = ''
       this.passwordConfirm = ''
@@ -59,12 +118,9 @@ export default {
         this.isPasswordRight()
         if(this.equal)
         {
-          //调用修改密码的接口
-          this.$store.commit('topPopupToggle',"Password changed!")
-          this.password = ''
-          this.passwordConfirm = ''
-          this.errorText = ''
-          eventHub.$emit('close',false)
+          this.editPassword()
+        }else{
+          this.$store.commit('topPopupToggle',"两次输入的密码不同！")
         }
       }else{
         this.$store.commit('topPopupToggle',"Fill the blanks!")

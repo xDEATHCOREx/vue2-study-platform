@@ -10,7 +10,7 @@
     :rows="3" 
     :rowsMax="15"/>
 
-  <textarea rows="2" cols="36" wrap="hard" v-model="answerDetail"></textarea> 
+   <upload @upload="uploadPic"></upload>
 
   <mu-raised-button 
     label="Submit" 
@@ -28,13 +28,15 @@
 
 <script>
 import {mapState} from 'vuex'
-
+import upload from '../components/upload.vue'
 export default {
   data () {
     return {
        value:'1',
        title:'Answering',
        answerDetail:'',
+       answerPic:'',
+       answerPicName:'',
        inputErrorText: '',
        text:'',
        disabled:true,
@@ -76,6 +78,9 @@ export default {
         },1000)
       this.$store.commit('loadingToggle')//转菊花
       var formData = new FormData()
+      if(this.answerPic!=''){//若父组件有接收到图片数据
+        formData.append("pictureFile", this.answerPic,this.answerPicName)
+      }
       formData.append("titleId", this.$route.query.titleId)
       formData.append("answer_text", this.answerDetail)
       this.axios({//上传信息接口
@@ -113,10 +118,14 @@ export default {
       }else{
         this.$store.commit('topPopupToggle',"Fill the blanks!")
       }
+    },
+    uploadPic(data,name){
+      this.answerPic = data
+      this.answerPicName = name
     }
   },
   components:{
-
+    'upload':upload,
     },
   beforeRouteLeave (to, from, next) {//可用于编写在离开此路由前的逻辑
       //之后可能还要加个提交态，判断是提交后跳转还是非提交跳转

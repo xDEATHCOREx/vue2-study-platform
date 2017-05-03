@@ -15,6 +15,8 @@ const store = new Vuex.Store({
         isLoading:false,//载入菊花状态
         isScroll:false,
         isAutomaticLogIn:true,
+        isLearning:false,
+        evaluated:false,//课程的评价状态
         scrollDirection:'',
         score:'',//用户测试的得分情况
         tips:{ //提示条配置
@@ -93,7 +95,19 @@ const store = new Vuex.Store({
         },
         userHeadUpdate:(state,url)=>{
            state.userHeadUrl = url 
-        }
+        },
+        startLearning:(state)=>{
+            state.isLearning = true 
+        },
+        endLearning:(state)=>{
+            state.isLearning = false 
+        },
+        setEvaluated:(state)=>{
+            state.evaluated = true
+        },
+        resetEvaluated:(state)=>{
+            state.evaluated = false
+        },
 	}
 })
 

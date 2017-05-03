@@ -6,6 +6,8 @@ import regist from './components/regist.vue'
 import detail from './components/detail.vue'
 import personal from './components/personal.vue'
 import video from './routes/videoCourse.vue'
+import picture from './routes/pictureCourse.vue'
+import article from './routes/articleCourse.vue'
 import starred from './routes/starred.vue'
 import personalInfo from './routes/personalInfo.vue'
 import exam from './routes/exam.vue'
@@ -14,6 +16,7 @@ import question from './routes/question.vue'
 import ask from './routes/ask.vue'
 import answer from './routes/answer.vue'
 import score from './routes/score.vue'
+import addCourseInfo from './routes/addCourseInfo.vue'
 
 import store from './store/store'
 
@@ -49,6 +52,16 @@ const routes = [
 		path:'/video',
 		name:'video',
 		component:video,
+	},
+	{
+		path:'/picture',
+		name:'picture',
+		component:picture,
+	},
+	{
+		path:'/article',
+		name:'article',
+		component:article,
 	},
 	{
 		path:'/starred',
@@ -107,6 +120,14 @@ const routes = [
 		path:'/score',
 		name:'score',
 		component:score,
+		meta:{
+			//暂时取消requireAuth:true,
+		}		
+	},
+	{
+		path:'/addCourseInfo',
+		name:'addCourseInfo',
+		component:addCourseInfo,
 		meta:{
 			//暂时取消requireAuth:true,
 		}		

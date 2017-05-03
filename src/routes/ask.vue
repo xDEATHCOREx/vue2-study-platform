@@ -20,18 +20,6 @@
     :rows="3" 
     :rowsMax="15"/>
 
-  <textarea rows="2" cols="36" wrap="hard" v-model="text"></textarea> 
-
-      <mu-dropDown-menu :value="value" @change="handleChange" autoWidth>
-      <mu-menu-item value="1" title="星期一testtesttest"/>
-      <mu-menu-item value="2" title="星期二"/>
-      <mu-menu-item value="3" title="星期三"/>
-      <mu-menu-item value="4" title="星期四"/>
-      <mu-menu-item value="5" title="星期五"/>
-      <mu-menu-item value="6" title="星期六"/>
-      <mu-menu-item value="7" title="星期日"/>
-      </mu-dropDown-menu>
-
   <mu-raised-button 
     label="Submit" 
     class="demo-raised-button submit-btn" 
@@ -42,7 +30,8 @@
     :disabled="disabled"/>
     <br/>
     <br/> 
-   <upload></upload>
+{{questionPic}}
+   <upload @upload="uploadPic"></upload>
 
      
 </div>
@@ -59,8 +48,9 @@ export default {
        title:'Asking',
        questionTitle:'',
        questionDetail:'',
+       questionPic:'',
+       questionPicName:'',
        inputErrorText: '',
-       text:'',
        disabled:false,
     }
   },
@@ -87,6 +77,9 @@ export default {
         },1000)
       this.$store.commit('loadingToggle')//转菊花
       var formData = new FormData()
+      if(this.questionPic!=''){//若父组件有接收到图片数据
+        formData.append("pictureFile", this.questionPic,this.questionPicName)
+      }
       formData.append("title", this.questionTitle)
       formData.append("question_text", this.questionDetail)
       this.axios({//上传信息接口
@@ -123,6 +116,10 @@ export default {
       }else{
         this.$store.commit('topPopupToggle',"Fill the blanks!")
       }
+    },
+    uploadPic(data,name){
+      this.questionPic = data
+      this.questionPicName = name
     }
   },
   components:{
@@ -153,6 +150,7 @@ export default {
 .ask-root{
   padding: 20px 20px 36px 20px;
   text-align: center;
+  overflow: auto;
 }
 .submit-btn{
     position: fixed;

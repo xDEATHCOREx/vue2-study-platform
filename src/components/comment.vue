@@ -8,6 +8,7 @@
   </mu-card-header>
   <mu-card-text v-html="formattedAnswerText(item.answerText)">
   </mu-card-text>
+    <img class="answer-pic" v-if="item.answerPic" :src="item.answerPic">
   <mu-card-actions>
     <mu-flat-button  icon="arrow_upward" label="1"/>
     <mu-flat-button  icon="arrow_downward" label="2"/>
@@ -67,6 +68,14 @@ export default {
 <style lang="css" scoped>
 .answer{
   margin-top: 10px;
+}
+.answer-pic{
+    width: 92%;
+    max-width: 100%;
+    display: block;
+    vertical-align: top;
+    margin: 0 auto;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.656863), 0 3px 10px rgba(0,0,0,.227451);
 }
 .mu-icon-menu{
     position: absolute;

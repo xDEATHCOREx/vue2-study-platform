@@ -34,7 +34,7 @@ import preview from './preview.vue'
       return {
       list: [{
         image: '../assets/img/a1.jpg',
-        title: 'Breakfast',
+        title: '课程入口',
         author: 'Myron'
       }, {
         image: '../../src/assets/img/a9.jpg',
@@ -106,16 +106,30 @@ import preview from './preview.vue'
         return this.$refs.mySwiper.swiper
       }
     },
+    methods:{
+      getCourses(){
+        //获取课程信息
+        this.axios.get('/course/summary.action')
+        .then(res =>{
+          console.warn(res.data)
+          if(res.data.success){
+            
+          }else{
+
+          }
+        })
+        .catch(err=> {
+          console.log(err)
+        })
+      }
+    },
     components:{
     	'preview': preview
     },
     mounted() {
       //更改header的title，实际上是改变store里的值
       this.$store.commit('setTitle',this.title)
-      // you can use current swiper instance object to do something(swiper methods)
-      // 然后你就可以使用当前上下文内的swiper对象去做你想做的事了
-      //console.log('this is current swiper instance object', this.swiper)   
-      //this.swiper.slideTo(3, 1000, false)
+      this.getCourses()
     }
   }
 </script>
