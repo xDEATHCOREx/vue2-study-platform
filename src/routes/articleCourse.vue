@@ -1,26 +1,12 @@
 <template>
 <div class="learning-root">
  <mu-card>
-  <mu-card-title title="Content Title" subTitle="Content Title"/>
-  <mu-card-text>
-    散落在指尖的阳光，我试着轻轻抓住光影的踪迹，它却在眉宇间投下一片淡淡的阴影。
-    <br/>调皮的阳光掀动了四月的心帘，温暖如约的歌声渐起。
-    <br/>似乎在诉说着，我也可以在漆黑的角落里，找到阴影背后的阳光，
-    <br/>找到阳光与阴影奏出和谐的旋律。我要用一颗敏感赤诚的心迎接每一缕滑过指尖的阳光！
-    散落在指尖的阳光，我试着轻轻抓住光影的踪迹，它却在眉宇间投下一片淡淡的阴影。
-    <br/>调皮的阳光掀动了四月的心帘，温暖如约的歌声渐起。
-    <br/>似乎在诉说着，我也可以在漆黑的角落里，找到阴影背后的阳光，
-    <br/>找到阳光与阴影奏出和谐的旋律。我要用一颗敏感赤诚的心迎接每一缕滑过指尖的阳光！散落在指尖的阳光，我试着轻轻抓住光影的踪迹，它却在眉宇间投下一片淡淡的阴影。
-    <br/>调皮的阳光掀动了四月的心帘，温暖如约的歌声渐起。
-    <br/>似乎在诉说着，我也可以在漆黑的角落里，找到阴影背后的阳光，
-    <br/>找到阳光与阴影奏出和谐的旋律。我要用一颗敏感赤诚的心迎接每一缕滑过指尖的阳光！散落在指尖的阳光，我试着轻轻抓住光影的踪迹，它却在眉宇间投下一片淡淡的阴影。
-    <br/>调皮的阳光掀动了四月的心帘，温暖如约的歌声渐起。
-    <br/>似乎在诉说着，我也可以在漆黑的角落里，找到阴影背后的阳光，
-    <br/>找到阳光与阴影奏出和谐的旋律。我要用一颗敏感赤诚的心迎接每一缕滑过指尖的阳光！
+  <mu-card-title :title="detail.resource.resourceName" subTitle="副标题"/>
+  <mu-card-text v-html="formattedArticleText">
   </mu-card-text>
 </mu-card>
   <floating-btn @openList="openList"></floating-btn>
-<course-list :open="open" @closeList="closeList"></course-list>
+<course-list :open="open" :courseId="detail.resource.courseId" @closeList="closeList"></course-list>
 </div>
 </template>
 
@@ -33,6 +19,17 @@ import courseList from '../components/courseList.vue'
       return {
         title:'articleCourse',
         open:false,
+        detail:{
+          "resourceId": "",
+          "resource": {
+            "courseId": "",
+            "article": "",
+            "resourceId": "",
+            "resType": "",
+            "resourceName": ""
+          },
+          "judged": ''
+        },
       }
     },
     mounted(){
@@ -40,8 +37,30 @@ import courseList from '../components/courseList.vue'
       this.$store.commit('setTitle',this.title)
       this.$store.commit('startLearning')
       eventHub.$emit('updateNav','article')
+      this.getResourceDetail()
+    },
+    computed:{
+      formattedArticleText () { 
+        var replaceText = String(this.detail.resource.article).replace(/\n/g,'<br/>')//注意写法！
+         return replaceText
+       },
     },
     methods:{
+      getResourceDetail(){
+        //获取资源详细信息
+        this.axios.get('/resource/detail.action?resourceId='+this.$route.query.resourceId)
+        .then(res =>{
+          console.warn(res.data)
+          if(res.data.success){
+            this.detail = res.data.object
+          }else{
+            this.$store.commit('topPopupToggle',res.data.result_msg)
+          }
+        })
+        .catch(err=> {
+          console.log(err)
+        })
+      },
        openList(){
         this.open = true
       },

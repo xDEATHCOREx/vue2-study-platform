@@ -2,21 +2,20 @@
 <div class="gridlist-demo-container">
   <mu-grid-list class="gridlist-demo">
     <mu-sub-header>Courses</mu-sub-header>
-    <mu-grid-tile v-for="tile, index in list" :key="index">
-    <router-link class="link" :to="{path:'/detail',query:{id:'4'}}">
-      <img src="../assets/img/a4.jpg"/>
+    <mu-grid-tile v-for="item, index in list" :key="index">
+    <router-link class="link" :to="{path:'/detail',query:{id:item.courseId}}">
+      <img :src="item.course.coursePic"/>
     </router-link>
       
-      <span slot="title">{{tile.title}}</span>
-      <span slot="subTitle">by <b>{{tile.author}}</b></span>
-      <mu-icon-button icon="star_border" slot="action"/>
+      <span class="title" slot="title">{{item.course.courseName}}</span>
+      <star-btn :isStarred="item.starred" :courseId="item.courseId" slot="action"></star-btn>
     </mu-grid-tile>
   </mu-grid-list>
 </div>
 
 </template>
-
 <script>
+import starBtn from './starBtn.vue'
 	export default {
     data () {
       return {
@@ -32,6 +31,7 @@
       
     },
     components:{
+      'star-btn':starBtn
     },
   }
 </script>
@@ -48,7 +48,9 @@
   overflow-y: auto;
   width: 100%;
 }
-
+.title{
+  font-size: 12px;
+}
 img{
   width: 100%;
   height: 100%;

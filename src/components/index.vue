@@ -21,7 +21,7 @@
     <div class="swiper-scrollbar"   slot="scrollbar"></div>
   </swiper>
   <preview :list="list"></preview>
-  <preview :list="list2"></preview>
+  <!-- <preview :list="list2"></preview> -->
   <p class="copyright">Copyright © 2017 Minhan Li</p>
 </div>
 </template>
@@ -33,22 +33,14 @@ import preview from './preview.vue'
     data() {
       return {
       list: [{
-        image: '../assets/img/a1.jpg',
-        title: '课程入口',
-        author: 'Myron'
-      }, {
-        image: '../../src/assets/img/a9.jpg',
-        title: 'Burger',
-        author: 'Linyu'
-      }, {
-        image: '../../src/assets/img/a8.jpg',
-        title: 'Camera',
-        author: 'ruolin'
-      }, {
-        image: '../../src/assets/img/a10.jpg',
-        title: 'Hats',
-        author: 'kakali'
-      }],
+      "courseId": "",
+      "course": {
+        "courseId": "",
+        "courseName": "",
+        "coursePic": ""
+      },
+      "starred": ""
+    },],
       list2: [{
         image: '../../src/assets/img/a3.jpg',
         title: 'Test',
@@ -113,7 +105,7 @@ import preview from './preview.vue'
         .then(res =>{
           console.warn(res.data)
           if(res.data.success){
-            
+            this.list = res.data.object
           }else{
 
           }

@@ -38,7 +38,7 @@ html,body,#app{
 	overflow: auto;
 }
 .starred{
-    color: yellow;
+    color: yellow!important;
   }
 .unstar{
   color: white;

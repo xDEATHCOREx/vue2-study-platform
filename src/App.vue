@@ -1,12 +1,13 @@
 <template>
+
   <div id="app" >
       <popup></popup>
        <confirm></confirm>
        <loading></loading>
       <top-header></top-header>
-     <transition>
+<!--      <keep-alive include="picture"></keep-alive> -->
       <router-view class="view"></router-view>
-      </transition>
+      
       <bottom-nav v-show="isLearning"></bottom-nav>
   </div>
 </template>

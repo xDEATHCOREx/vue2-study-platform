@@ -8,33 +8,33 @@
         "subject": "1",
         "type": "Mind",
         "sort": "normal",
-        "title":"Personality test",
+        "title":"所罗门学习风格自测题",
         "difficulty":"Easy",
         "time":"40",
-        "summary":"For each of the 44 questions below select either 'a' or 'b' to indicate your answer. Please choose only one answer for each question. If both 'a' and 'b' seem to apply to you, choose the one that applies more frequently. When you are finished selecting answers to each question please select the submit button at the end of the form.",
+        "summary":"虽然教育者早就注意到学生们在学习风格（或可称认知风格）方面有很大差异，但苦于没有很好的测试方法。所罗门（Barbara A. Soloman）从信息加工、感知、输入、理解四个方面将学习风格分为4个组对8种类型，它们是：活跃型与沉思型、感悟型与直觉型、视觉型与言语型、序列型与综合型，并设计了具有很强操作性的学习风格量表，可以较好地进行学习风格的测试。您属于什么样的学习风格？不妨利用下面的自测问卷表和分析表来测试一下。",
         "list": [
             {
-                "question": "I understand something better after I",
+                "question": "为了较好地理解某些事物，我首先",
                 "pic_url":"http://18-newbee.top/dist/image/a1.jpg",
-                "option1": "try it out.",
-                "option2": "think it through.",
+                "option1": "试试看。",
+                "option2": "深思熟虑。",
                 "option3": "",
                 "option4": ""
             },
             {
-                "question": "I would rather be considered",
+                "question": "我办事喜欢",
                 "pic_url":"",
-                "option1": "realistic.",
-                "option2": "innovative.",
+                "option1": "讲究实际",
+                "option2": "标新立异",
                 "option3": "",
                 "option4": ""
 
             },
             {
-                "question": "When I think about what I did yesterday, I am most likely to get",
+                "question": "当我回想以前做过的事，我的脑海中大多会出现",
                "pic_url":"http://18-newbee.top/dist/image/a1.jpg",
-                "option1": "a picture.",
-                "option2": "words.",
+                "option1": " 一幅画面。",
+                "option2": " 一些话语。",
                 "option3": "",
                 "option4": "",
                 "answer": "对",
@@ -43,86 +43,86 @@
                 "type": "C1,C2,C3"
             },
              {
-                "question": "I tend to",
-                "option1": "understand details of a subject but may be fuzzy about its overall structure.",
-                "option2": "understand the overall structure but may be fuzzy about details.",
+                "question": "我往往会",
+                "option1": "明了事物的细节但不明其总体结构。",
+                "option2": "明了事物的总体结构但不明其细节。",
                 "option3": "",
                 "option4": ""
             },
             {
-                "question": "I tend to",
-                "option1": "understand details of a subject but may be fuzzy about its overall structure.",
-                "option2": "understand the overall structure but may be fuzzy about details.",
+                "question": "在学习某些东西时, 我不禁会",
+                "option1": "谈论它。",
+                "option2": "思考它。",
                 "option3": "",
                 "option4": ""
             },
             {
-                "question": "I tend to",
-                "option1": "understand details of a subject but may be fuzzy about its overall structure.",
-                "option2": "understand the overall structure but may be fuzzy about details.",
+                "question": "如果我是一名教师，我比较喜欢教",
+                "option1": "关于事实和实际情况的课程。",
+                "option2": "关于思想和理论方面的课程。",
                 "option3": "",
                 "option4": ""
             },
             {
-                "question": "I tend to",
-                "option1": "understand details of a subject but may be fuzzy about its overall structure.",
-                "option2": "understand the overall structure but may be fuzzy about details.",
+                "question": "我比较偏爱的获取新信息的媒体是",
+                "option1": "图画、图解、图形及图象。",
+                "option2": "书面指导和言语信息。",
                 "option3": "",
                 "option4": ""
             },
             {
-                "question": "I tend to",
-                "option1": "understand details of a subject but may be fuzzy about its overall structure.",
-                "option2": "understand the overall structure but may be fuzzy about details.",
+                "question": "一旦我了解了",
+                "option1": "事物的所有部分, 我就能把握其整体。",
+                "option2": "事物的整体，我就知道其构成部分。",
                 "option3": "",
                 "option4": ""
             },
             {
-                "question": "I tend to",
-                "option1": "understand details of a subject but may be fuzzy about its overall structure.",
-                "option2": "understand the overall structure but may be fuzzy about details.",
+                "question": "在学习小组中遇到难题时，我通常会",
+                "option1": "挺身而出，畅所欲言。",
+                "option2": "往后退让，倾听意见。",
                 "option3": "",
                 "option4": ""
             },
             {
-                "question": "I tend to",
-                "option1": "understand details of a subject but may be fuzzy about its overall structure.",
-                "option2": "understand the overall structure but may be fuzzy about details.",
+                "question": "我发现比较容易学习的是",
+                "option1": "事实性内容。",
+                "option2": "概念性内容。",
+                "option3": "",
+                "option4": ""
+            },   
+            {
+                "question": "在阅读一本带有许多插图的书时，我一般会",
+                "option1": "仔细观察插图。",
+                "option2": "集中注意文字。",
                 "option3": "",
                 "option4": ""
             },
             {
-                "question": "I tend to",
-                "option1": "understand details of a subject but may be fuzzy about its overall structure.",
-                "option2": "understand the overall structure but may be fuzzy about details.",
+                "question": "当我解决数学题时，我常常",
+                "option1": "思考如何一步一步求解。",
+                "option2": "先看解答，然后设法得出解题步骤。",
                 "option3": "",
                 "option4": ""
             },
             {
-                "question": "I tend to",
-                "option1": "understand details of a subject but may be fuzzy about its overall structure.",
-                "option2": "understand the overall structure but may be fuzzy about details.",
+                "question": "在我修课的班级中，",
+                "option1": "我通常结识许多同学。",
+                "option2": "我认识的同学寥寥无几。",
                 "option3": "",
                 "option4": ""
             },
             {
-                "question": "I tend to",
-                "option1": "understand details of a subject but may be fuzzy about its overall structure.",
-                "option2": "understand the overall structure but may be fuzzy about details.",
+                "question": "在阅读非小说类作品时，我偏爱",
+                "option1": "那些能告诉我新事实和教我怎么做的东西。",
+                "option2": "那些能启发我思考的东西。",
                 "option3": "",
                 "option4": ""
             },
             {
-                "question": "I tend to",
-                "option1": "understand details of a subject but may be fuzzy about its overall structure.",
-                "option2": "understand the overall structure but may be fuzzy about details.",
-                "option3": "",
-                "option4": ""
-            },
-            {
-                "question": "I tend to",
-                "option1": "understand details of a subject but may be fuzzy about its overall structure.",
-                "option2": "understand the overall structure but may be fuzzy about details.",
+                "question": "我喜欢的教师是",
+                "option1": "在黑板上画许多图解的人。",
+                "option2": "花许多时间讲解的人。",
                 "option3": "",
                 "option4": ""
             },

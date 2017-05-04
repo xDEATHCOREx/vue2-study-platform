@@ -12,14 +12,36 @@ import {mapState} from 'vuex'
 	export default {
     data () {
       return {
-      	
-         star:'unstar',
+      	    star:'unstar'  
       }
     },
-    mounted(){
-
+    props:['isStarred','courseId'],
+    mounted(){//这里取不到detail.vue中传过来的isStarred...
+      console.warn(this.isStarred,"star status mounted")
+      if(this.isStarred){
+          this.star = 'starred'
+        }else{
+          this.star =  'unstar'
+        }
+    },
+    watch:{
+      isStarred:function(val,oldVal){//这里可以是异步观测isStarred的值？
+        console.warn(val,oldVal,"star status watch")
+        if(val){
+          this.star = 'starred'
+        }else{
+          this.star =  'unstar'
+        }
+      }
     },
     computed:{
+     /* checkStar(){
+        if(this.isStarred){
+          this.star = 'starred'
+        }else{
+          this.star =  'unstar'
+        }
+      },*/
       ...mapState({
         logIn:'logIn',//记录了登录态    
       })
@@ -40,8 +62,7 @@ import {mapState} from 'vuex'
        // this.disabled = true //暂时禁用收藏按钮
         if(this.star == 'unstar'){
           //这里调用收藏接口
-         this.starRequest('save')
-         
+         this.starRequest('save')      
         }else{
           //这里调用取消收藏
           this.starRequest('del')
@@ -49,7 +70,7 @@ import {mapState} from 'vuex'
       },
       starRequest(tag){
          let formData = new FormData()
-          formData.append("infoId", this.data.titleId)
+          formData.append("infoId", this.courseId)
            this.axios({//上传信息接口
               url: '/collection/'+tag+'/1',
               method: 'post',
@@ -65,16 +86,17 @@ import {mapState} from 'vuex'
               console.warn(res)
               if(res.data.success){              
                 //弹出提示
-                this.$store.commit('topPopupToggle',tag)
+                
                 this.$store.commit('loadingToggle')                    
                 if(tag == 'save'){
-                 this.star = 'starred'
-                 this.starText = 'starred'
+                  this.$store.commit('topPopupToggle','收藏成功！')
+                 this.star = 'starred'      
                 }else{
+                  this.$store.commit('topPopupToggle','已取消收藏！')
                   this.star = 'unstar'
-                  this.starText = 'star'
                 }
               }else{//其他情况
+                this.$store.commit('loadingToggle')  
                 this.$store.commit('topPopupToggle',"Failed!")
               }
             })
