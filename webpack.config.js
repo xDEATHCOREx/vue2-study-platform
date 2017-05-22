@@ -2,13 +2,22 @@ var path = require('path')
 var webpack = require('webpack')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
-  entry: './src/main.js',
+  entry: {
+    main:'./src/main.js',
+    vendor:['vue','vue-router','vuex','muse-ui','vue-awesome-swiper','axios','lrz']
+  },
   output: {
     path: path.resolve(__dirname, 'dist'),
     publicPath: 'dist/',
-    filename: 'build.js'
+    filename: '[name].js',
+    chunkFilename: '[name].min.js' // 设置require.ensure 文件名
   },
-  plugins: [new HtmlWebpackPlugin()],
+  plugins: [
+    new HtmlWebpackPlugin(),
+    new webpack.optimize.CommonsChunkPlugin({
+                name: 'vendor' // 指定公共 bundle 的名字。
+            })
+  ],
   module: {
     rules: [
       {
@@ -71,22 +80,27 @@ module.exports = {
 }
 
 if (process.env.NODE_ENV === 'production') {
-  module.exports.devtool = '#source-map'
+  module.exports.devtool = '#cheap-module-source-map'
   // http://vue-loader.vuejs.org/en/workflow/production.html
   module.exports.plugins = (module.exports.plugins || []).concat([
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: '"production"'
+        NODE_ENV: '"production"' //全局标识，其他部分的代码也可以直接访问这个标识，这里用于标注生产环境？
       }
     }),
     new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
+      sourceMap: true,//意味着当你的js编译压缩后，需要继续读取原始脚本信息的行数，位置，警告等有效调试信息时，你需要手动开启UglifyJsPlugin 的配置项：sourceMap: true 。
       compress: {
-        warnings: false
+        warnings: false//意味着当你想在编译压缩的时候查看一部分js的警告信息时，你需要将compress.warnings 手动设置为 true。
       }
     }),
     new webpack.LoaderOptionsPlugin({
       minimize: true
+      //UglifyJsPlugin 将不再支持让 Loaders 最小化文件的模式。debug 选项已经被移除。Loaders 不能从 webpack 的配置中读取到他们的配置项。
+      //loader的最小化文件模式将会在webpack 3或者后续版本中被彻底取消掉.
+      //为了兼容部分旧式loader，你可以通过 LoaderOptionsPlugin 的配置项来提供这些功能。
     })
   ])
 }
+
+

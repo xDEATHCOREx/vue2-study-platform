@@ -2,19 +2,11 @@
 <div class="index-root">
 	 <swiper :options="swiperOption" ref="mySwiper" class="swiper">
     <!-- slides -->
-    <swiper-slide class="slide" id="slide1" >
-    	<router-link class="link" :to="{name:'exam',query:{id:'1'}}"></router-link>
+    <swiper-slide v-for="(item,index) in bannerList" class="slide"  :style="{backgroundImage:'-webkit-linear-gradient(bottom,rgba(255,0,0,0) 75%,rgba(0,0,0,0.3)),url(' + item.course.coursePic + ')'}" >
+      <p class="banner-title">{{item.course.courseName}}</p>
+    	<router-link class="link" :to="{name:'detail',query:{id:item.courseId}}"></router-link>
     </swiper-slide>
-    <swiper-slide class="slide" id="slide2">
-    	<router-link class="link" :to="{name:'exam',query:{id:'3'}}"></router-link>
-    </swiper-slide>
-    <swiper-slide class="slide" id="slide3">
-    	<router-link class="link" :to="{path:'/detail',query:{id:'3'}}"></router-link>
-    </swiper-slide>
-    <swiper-slide class="slide" id="slide4">
-    	<router-link class="link" :to="{path:'/detail',query:{id:'4'}}"></router-link>
-    </swiper-slide>
-    <!-- Optional controls -->
+
     <div class="swiper-pagination"  slot="pagination"></div>
     <div class="swiper-button-prev swiper-button-white" slot="button-prev"></div>
     <div class="swiper-button-next swiper-button-white" slot="button-next"></div>
@@ -28,11 +20,22 @@
 
 <script>
 import preview from './preview.vue'
+import {eventHub} from './Event-hub.js'
  export default {
-    name: 'Main',
+    //name: 'Main',
     data() {
       return {
+      title:'学习平台',
       list: [{
+      "courseId": "",
+      "course": {
+        "courseId": "",
+        "courseName": "",
+        "coursePic": ""
+      },
+      "starred": ""
+    },],
+      bannerList: [{
       "courseId": "",
       "course": {
         "courseId": "",
@@ -44,7 +47,7 @@ import preview from './preview.vue'
       list2: [{
         image: '../../src/assets/img/a3.jpg',
         title: 'Test',
-        author: 'fuck'
+        author: 'f'
       }, {
         image: '../../src/assets/img/a4.jpg',
         title: 'check',
@@ -58,13 +61,13 @@ import preview from './preview.vue'
         title: 'Hats',
         author: 'xxxxxxxxxxxxxx'
       }],
-      	title:'Index',
         swiperOption: {
           // NotNextTick is a component's own property, and if notNextTick is set to true, the component will not instantiate the swiper through NextTick, which means you can get the swiper object the first time (if you need to use the get swiper object to do what Things, then this property must be true)
           // notNextTick是一个组件自有属性，如果notNextTick设置为true，组件则不会通过NextTick来实例化swiper，也就意味着你可以在第一时间获取到swiper对象，假如你需要刚加载遍使用获取swiper对象来做什么事，那么这个属性一定要是true
           notNextTick: true,
           // swiper configs 所有的配置同swiper官方api配置
-         // autoplay: 3000,
+          autoplay: 3000,
+          autoplayDisableOnInteraction : false,
           //direction : 'vertical',
           grabCursor : true,
           setWrapperSize :true,
@@ -76,7 +79,7 @@ import preview from './preview.vue'
           scrollbar:'.swiper-scrollbar',
           mousewheelControl : true,
           observeParents:true,
-          //loop : true,//loop模式：会在原本slide前后复制若干个slide并在合适的时候切换，让Swiper看起来是循环的。 【bug：循环后页面的链接跳转会重新加载，暂时不用】
+          loop : true,//loop模式：会在原本slide前后复制若干个slide并在合适的时候切换，让Swiper看起来是循环的。 【bug：循环后页面的链接跳转会重新加载，暂时不用】
           // if you need use plugins in the swiper, you can config in here like this
           // 如果自行设计了插件，那么插件的一些配置相关参数，也应该出现在这个对象中，如下debugger
           debugger: true,
@@ -99,6 +102,21 @@ import preview from './preview.vue'
       }
     },
     methods:{
+      getBannerCourses(){
+        //获取banner课程信息
+        this.axios.get('/course/banner.action')
+        .then(res =>{
+          console.warn(res.data)
+          if(res.data.success){
+            this.bannerList = res.data.object
+          }else{
+
+          }
+        })
+        .catch(err=> {
+          console.log(err)
+        })
+      },
       getCourses(){
         //获取课程信息
         this.axios.get('/course/summary.action')
@@ -113,6 +131,12 @@ import preview from './preview.vue'
         .catch(err=> {
           console.log(err)
         })
+      },
+      resetStar(){
+        console.warn("resettttt")
+        for(var i=0;i<this.list.length;i++){
+          this.list[i].starred = false
+        }
       }
     },
     components:{
@@ -121,7 +145,9 @@ import preview from './preview.vue'
     mounted() {
       //更改header的title，实际上是改变store里的值
       this.$store.commit('setTitle',this.title)
+      this.getBannerCourses()
       this.getCourses()
+      eventHub.$on('resetStar',this.resetStar)
     }
   }
 </script>
@@ -129,12 +155,19 @@ import preview from './preview.vue'
 <style lang="css" scoped>
 .index-root{
   overflow: visible;
+      -webkit-overflow-scrolling: touch;
+     -moz-overflow-scrolling: touch; 
+     -ms-overflow-scrolling: touch;
+     overflow-scrolling: touch;/* 这里btn和root是同一个层级，不然会发生btn被遮盖的情况 */
+      position: relative;
+      height: 100%;
 }
 	.slide{
 		width: 100%;
 		height: 100%;	
 		background-size: 100% 100%;
 	  background-repeat: no-repeat;	
+    position: relative;
 	}
 	.swiper{
 		width: 100%;
@@ -145,19 +178,19 @@ import preview from './preview.vue'
 		width: 100%;
 		height: 100%;	
 	}
-	#slide1{
-	  background-image: url('../assets/img/a1.jpg');
-	  
-	}
-	#slide2{
-	  background-image: url('../assets/img/a2.jpg');
-	}
-	#slide3{
-	  background-image: url('../assets/img/a3.jpg');
-	}
-	#slide4{
-	  background-image: url('../assets/img/a5.jpg');
-	}
+  .banner-title{
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    margin: 0;
+    color: #fff;
+    font-size: 16px;
+    padding-right: 10px;
+  }
+	/* #slide1{
+    background-image: url('../assets/img/a1.jpg');
+    
+  } */
 	.copyright{
 		font-size: 0.5rem;
     	color: #B7BBBf;

@@ -1,4 +1,5 @@
 <template>
+<div>
 <div class="exam-root">
  <mu-paper class="demo-paper" :zDepth="3" >
   <h3>{{exam.title}}</h3>
@@ -22,9 +23,7 @@
  </mu-paper>
 
  <mu-paper class="sub-title">Single select</mu-paper>
-  {{answer}}
-
- <mu-card v-for="(item, index) in list" >
+ <mu-card v-for="(item, index) in list" :id="'question'+(index+1)">
   <mu-card-media v-if="item.pic_url">
     <img :src="item.pic_url" />
   </mu-card-media>
@@ -38,53 +37,64 @@
   <mu-radio v-if="item.option4" :label="'D、'+item.option4" :name="questions[index]" nativeValue="d" v-model="answer[index+1]"  class="demo-radio" />  <br v-if="item.option4" />
  </mu-card>
 
- <mu-card>
-   <mu-card-text>Question{{1}} : choose !!!{{multiSelectAnswer[1]}}
-  </mu-card-text>
-      <mu-checkbox name="group" nativeValue="checkbox1" v-model="multiSelectAnswer[1]" label="checkbox1" class="demo-checkbox"/> <br/>
-    <mu-checkbox name="group" nativeValue="checkbox2" v-model="multiSelectAnswer[1]" label="checkbox2" class="demo-checkbox"/> <br/>
-    <mu-checkbox name="group" nativeValue="checkbox3" v-model="multiSelectAnswer[1]" label="checkbox3" class="demo-checkbox"/> <br/>
- </mu-card>
+<!--  <mu-card>
+  <mu-card-text>Question{{1}} : choose !!!{{multiSelectAnswer[1]}}
+ </mu-card-text>
+     <mu-checkbox name="group" nativeValue="checkbox1" v-model="multiSelectAnswer[1]" label="checkbox1" class="demo-checkbox"/> <br/>
+   <mu-checkbox name="group" nativeValue="checkbox2" v-model="multiSelectAnswer[1]" label="checkbox2" class="demo-checkbox"/> <br/>
+   <mu-checkbox name="group" nativeValue="checkbox3" v-model="multiSelectAnswer[1]" label="checkbox3" class="demo-checkbox"/> <br/>
+</mu-card> -->
 
-  <mu-raised-button 
-    label="Submit" 
-    class="demo-raised-button submit-btn" 
-    secondary
-    @click="submitAnswer"
-    :disabled="disabled"
-    fullWidth/>
-
+  
+<!-- 
  <mu-paper class="sub-title" v-for="x in 20" >
   <a class="target-fix" :id="'type'+x"></a>
   Multi selects{{x}}
  </mu-paper>
-
+ -->
 
     <mu-icon-menu
         icon="add"
         :anchorOrigin="rightBottom"
         :targetOrigin="rightBottom">
-      <a :href="'#type'+a" v-for="a in 4">
-        <mu-menu-item :title="'type'+a" />
-      </a>
-       <a href="#type10">
-        <mu-menu-item title="Send feedback" />
-      </a>
-       <a href="javascript:void(0)" @click='intoView(8)'>
-        <mu-menu-item title="Settings" />
+      <!--  <a href="#question10">
+       <mu-menu-item title="question10" />
+            </a> -->
+       <a href="javascript:void(0)" @click='intoView(1)'>
+        <mu-menu-item title="第一题" />
+       </a>
+       <a href="javascript:void(0)" @click='intoView(10)'>
+        <mu-menu-item title="第十题" />
+       </a>
+       <a href="javascript:void(0)" @click='intoView(20)'>
+        <mu-menu-item title="第二十题" />
+       </a>
+       <a href="javascript:void(0)" @click='intoView(30)'>
+        <mu-menu-item title="第三十题" />
+       </a>
+       <a href="javascript:void(0)" @click='intoView(40)'>
+        <mu-menu-item title="第四十题" />
        </a>
     </mu-icon-menu>
 </div>
-
+<mu-raised-button 
+    label="提交" 
+    class="demo-raised-button submit-btn" 
+    secondary
+    @click="submitAnswer"
+    :disabled="disabled"
+    fullWidth/>
+</div>
 </template>
 
 <script>
 import testJson from '../assets/json/test.json'
 import {mapState} from 'vuex'
+import {eventHub} from '../components/Event-hub.js'
 	export default {
     data () {
       return {   	
-        title:'Exam',
+        title:'测试',
         rightBottom: {horizontal: 'right', vertical: 'bottom'},
         exam:{
           title:'A simple test in JavaScript & front-end skills',
@@ -112,8 +122,10 @@ import {mapState} from 'vuex'
       //更改header的title，实际上是改变store里的值
       this.$store.commit('setTitle',this.title)
 
-      if(this.$route.query.id==1){//id为1时是性格测试，载入对应json文件
-        this.list = testJson.result.list
+      if(this.$route.query.id==1){//id为1时是性格测试，载入对应json文件,先不用
+        
+      }
+      this.list = testJson.result.list
         this.exam = {
           title: testJson.result.title,
           time: testJson.result.time,
@@ -127,8 +139,7 @@ import {mapState} from 'vuex'
         }
         temp[1]='a'//设置一个默认的答案
         this.answer = temp
-      }
-     
+
       //获取题目内容，通过接口get，参数是id=xxx是试卷代号
       
       /*this.axios.get('../assets/json/test.json')
@@ -157,7 +168,7 @@ import {mapState} from 'vuex'
     },
     methods:{
       intoView(index){
-        var type = document.getElementById('type'+index)
+        var type = document.getElementById('question'+index)
         if(typeof type.scrollIntoViewIfNeeded == "function"){ //支持将元素显示在页面中间
           type.scrollIntoViewIfNeeded(true)
         }
@@ -178,6 +189,8 @@ import {mapState} from 'vuex'
       .then(res=>{
         console.warn(res,res.data)
         this.$store.commit('recordScore',res.data.object)
+        //emit提交使侧滑菜单改变路由
+        eventHub.$emit('updateTestStatus')
         this.$router.push({
           path: '/score'
         })
@@ -195,8 +208,8 @@ import {mapState} from 'vuex'
         if(this.logIn == true){//已登录
           console.warn("leaving to:",to.fullPath)
           this.$store.commit('dialogToggle',{
-            info : 'Sure leaving to '+to.name+'?',
-            title : 'Confirm',
+            info : '确认到 '+to.name+'中？',
+            title : '确认',
             event : 'jump',
             jumpTo : to.fullPath
           })
@@ -213,6 +226,11 @@ import {mapState} from 'vuex'
 <style lang="css" scoped>
 .exam-root{
   overflow: auto;
+  -webkit-overflow-scrolling: touch;
+     -moz-overflow-scrolling: touch; 
+     -ms-overflow-scrolling: touch;
+     overflow-scrolling: touch;
+     height: 100%;
 }
   .demo-paper{
      display: block;

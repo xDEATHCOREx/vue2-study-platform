@@ -1,8 +1,8 @@
 <template>
 <div class="answer-root">
   <mu-text-field 
-    label="detail" 
-    hintText="Answer the question" 
+    label="内容" 
+    hintText="请输入回答的内容" 
     v-model="answerDetail"
     labelFloat 
    fullWidth
@@ -13,7 +13,7 @@
    <upload @upload="uploadPic"></upload>
 
   <mu-raised-button 
-    label="Submit" 
+    label="提交" 
     class="demo-raised-button submit-btn" 
     touch="true" 
     secondary 
@@ -33,7 +33,7 @@ export default {
   data () {
     return {
        value:'1',
-       title:'Answering',
+       title:'回答中',
        answerDetail:'',
        answerPic:'',
        answerPicName:'',
@@ -97,13 +97,13 @@ export default {
               console.warn(res)
               if(res.data.success){              
                 //弹出提示
-                this.$store.commit('topPopupToggle',"Saved！")
+                this.$store.commit('topPopupToggle',"已保存！")
                 this.$router.push({ 
                   path: '/question' ,
                   query:{id:this.$route.query.titleId}
                 })
               }else{//其他情况
-                this.$store.commit('topPopupToggle',"Failed!")
+                this.$store.commit('topPopupToggle',"保存失败！")
               }
             })
             .catch(err =>{
@@ -113,10 +113,10 @@ export default {
             })  
     },
     check(){
-      if(this.questionTitle!=''&&this.questionDetail!=''){
+      if(this.answerDetail!=''){
         this.submit()
       }else{
-        this.$store.commit('topPopupToggle',"Fill the blanks!")
+        this.$store.commit('topPopupToggle',"请填写回答内容！")
       }
     },
     uploadPic(data,name){
@@ -132,8 +132,8 @@ export default {
         if(this.logIn == true){//已登录
           console.warn("leaving to:",to.fullPath)
           this.$store.commit('dialogToggle',{
-          info : 'Sure leaving to '+to.name+'?',
-          title : 'Confirm',
+          info : '确认到'+to.name+'中？',
+          title : '确认',
           event : 'jump',
           jumpTo : to.fullPath
           })

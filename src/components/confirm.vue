@@ -2,14 +2,15 @@
 <div>
   <mu-dialog :open="dialog" :title="title" >
     {{info}}
-    <mu-flat-button slot="actions" @click="cancel" primary label="Cancel"/>
-    <mu-flat-button slot="actions" primary @click="confirm" label="Confirm"/>
+    <mu-flat-button slot="actions" @click="cancel" primary label="取消"/>
+    <mu-flat-button slot="actions" primary @click="confirm" label="确认"/>
   </mu-dialog>
 </div>
 </template>
 
 <script>
 import {mapState} from 'vuex'
+import {eventHub} from './Event-hub.js'
 export default {
   data () {
     return {
@@ -39,7 +40,11 @@ export default {
             .then(res =>{
               console.warn(res)
               this.$store.commit(this.event)//执行传入的mutation
-              this.$store.commit('topPopupToggle',"Log out success!")
+              this.$store.commit('topPopupToggle',"登出成功!")
+              this.$store.commit('clearScore')//清除用户测试得分
+
+              eventHub.$emit('updateTestStatus')//更新测试态
+              eventHub.$emit('resetStar')//更新首页收藏态，防止在首页登出没有更新收藏态
               this.$router.push({ 
                 path : '/'
               })

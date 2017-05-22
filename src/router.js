@@ -15,7 +15,9 @@ import questions from './routes/questions.vue'
 import question from './routes/question.vue'
 import ask from './routes/ask.vue'
 import answer from './routes/answer.vue'
-import score from './routes/score.vue'
+//const score = resolve => require(['./routes/score.vue'], resolve)//AMD风格的require，似乎不能设置chunkname
+const score = r => require.ensure([], () => r(require('./routes/score.vue')), 'score')
+//import score from './routes/score.vue'
 import addCourseInfo from './routes/addCourseInfo.vue'
 
 import store from './store/store'
@@ -39,36 +41,48 @@ const routes = [
 		path:'/detail',
 		name:'detail',
 		component:detail,
+		meta:{
+			requireAuth:true,
+		}
 	},
 	{
 		path:'/personal',
 		name:'personal',
 		component:personal,
 		meta:{
-			//requireAuth:true,
+			requireAuth:true,
 		}
 	},
 	{
 		path:'/video',
 		name:'video',
 		component:video,
+		meta:{
+			requireAuth:true,
+		}
 	},
 	{
 		path:'/picture',
 		name:'picture',
 		component:picture,
+		meta:{
+			requireAuth:true,
+		}
 	},
 	{
 		path:'/article',
 		name:'article',
 		component:article,
+		meta:{
+			requireAuth:true,
+		}
 	},
 	{
 		path:'/starred',
 		name:'starred',
 		component:starred,
 		meta:{
-			//临时requireAuth:true,
+			requireAuth:true,
 		}
 	},
 	{
@@ -76,7 +90,7 @@ const routes = [
 		name:'personalInfo',
 		component:personalInfo,
 		meta:{
-			//临时requireAuth:true,
+			requireAuth:true,
 		}
 	},
 	{
@@ -84,7 +98,7 @@ const routes = [
 		name:'exam',
 		component:exam,
 		meta:{
-			//调试取消requireAuth:true,
+			requireAuth:true,
 			requireConfirm:true,
 		},
 	},
@@ -105,7 +119,7 @@ const routes = [
 		name:'ask',
 		component:ask,
 		meta:{
-			//暂时取消requireAuth:true,
+			requireAuth:true,
 		}		
 	},
 	{
@@ -113,7 +127,7 @@ const routes = [
 		name:'answer',
 		component:answer,
 		meta:{
-			//暂时取消requireAuth:true,
+			requireAuth:true,
 		}		
 	},
 	{
@@ -121,7 +135,7 @@ const routes = [
 		name:'score',
 		component:score,
 		meta:{
-			//暂时取消requireAuth:true,
+			requireAuth:true,
 		}		
 	},
 	{
@@ -129,7 +143,7 @@ const routes = [
 		name:'addCourseInfo',
 		component:addCourseInfo,
 		meta:{
-			//暂时取消requireAuth:true,
+			requireAuth:true,
 		}		
 	},
 	{

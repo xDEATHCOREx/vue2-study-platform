@@ -1,8 +1,8 @@
 <template>
 <div class="ask-root">
  <mu-text-field 
-   label="title" 
-   hintText="say it briefly" 
+   label="标题" 
+   hintText="请简明概要地描述问题关键" 
    v-model.trim="questionTitle" 
    labelFloat 
    fullWidth
@@ -11,8 +11,8 @@
     :maxLength="30"
   />
   <mu-text-field 
-    label="detail" 
-    hintText="Describe the question" 
+    label="内容" 
+    hintText="请详细描述问题的内容，可以输入多行" 
     v-model="questionDetail"
     labelFloat 
    fullWidth
@@ -21,7 +21,7 @@
     :rowsMax="15"/>
 
   <mu-raised-button 
-    label="Submit" 
+    label="提交" 
     class="demo-raised-button submit-btn" 
     touch="true" 
     secondary 
@@ -45,7 +45,7 @@ export default {
   data () {
     return {
        value:'1',
-       title:'Asking',
+       title:'提问中',
        questionTitle:'',
        questionDetail:'',
        questionPic:'',
@@ -64,7 +64,7 @@ export default {
   }),
   methods: {
     handleInputOverflow (isOverflow) {
-      this.inputErrorText = isOverflow ? 'Over length' : ''
+      this.inputErrorText = isOverflow ? '超过长度！' : ''
       this.disabled = isOverflow ? true : false
     },
      handleChange (value) {
@@ -96,12 +96,12 @@ export default {
               console.warn(res)
               if(res.data.success){              
                 //弹出提示
-                this.$store.commit('topPopupToggle',"Saved！")
+                this.$store.commit('topPopupToggle',"已保存！")
                 this.$router.replace({ 
                   path: '/questions' 
                 })
               }else{//其他情况
-                this.$store.commit('topPopupToggle',"Failed!")
+                this.$store.commit('topPopupToggle',res.data.result_msg)
               }
             })
             .catch(err =>{
@@ -114,7 +114,7 @@ export default {
       if(this.questionTitle!=''&&this.questionDetail!=''){
         this.submit()
       }else{
-        this.$store.commit('topPopupToggle',"Fill the blanks!")
+        this.$store.commit('topPopupToggle',"请填写标题和内容！")
       }
     },
     uploadPic(data,name){
@@ -130,8 +130,8 @@ export default {
         if(this.logIn == true){//已登录
           console.warn("leaving to:",to.fullPath)
           this.$store.commit('dialogToggle',{
-          info : 'Sure leaving to '+to.name+'?',
-          title : 'Confirm',
+          info : '确认到'+to.name+'中?',
+          title : '确认',
           event : 'jump',
           jumpTo : to.fullPath
           })

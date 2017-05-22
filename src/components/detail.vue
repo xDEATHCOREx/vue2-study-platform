@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="detail-root">
  <mu-card>
    <mu-card-media class="title-pic" :title="detail.course.courseName" subTitle="副标题">
     <img :src="detail.course.coursePic"  />
@@ -119,12 +119,22 @@ import starBtn from './starBtn.vue'
       }
     },
     components:{
-      'star-btn':starBtn
+      'star-btn':starBtn 
     },
   }
 </script>
 
 <style lang="css" scoped>
+.detail-root{
+  /*暂时不用overflow: auto; */
+   -webkit-overflow-scrolling: touch;
+     -moz-overflow-scrolling: touch; 
+     -ms-overflow-scrolling: touch;
+     overflow-scrolling: touch;/* 这里btn和root是同一个层级，不然会发生btn被遮盖的情况 */
+      position: relative;
+      height: 100%;
+      z-index: 10;
+}
 .title-pic{
   position: relative;
 }

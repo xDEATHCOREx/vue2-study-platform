@@ -1,0 +1,336 @@
+{
+    "status": "0",
+    "msg": "ok",
+    "result": {
+        "total": "44",
+        "pagenum": "1",
+        "pagesize": "3",
+        "subject": "1",
+        "type": "Mind",
+        "sort": "normal",
+        "title":"所罗门学习风格自测题",
+        "difficulty":"Easy",
+        "time":"40",
+        "summary":"虽然教育者早就注意到学生们在学习风格（或可称认知风格）方面有很大差异，但苦于没有很好的测试方法。所罗门（Barbara A. Soloman）从信息加工、感知、输入、理解四个方面将学习风格分为4个组对8种类型，它们是：活跃型与沉思型、感悟型与直觉型、视觉型与言语型、序列型与综合型，并设计了具有很强操作性的学习风格量表，可以较好地进行学习风格的测试。您属于什么样的学习风格？不妨利用下面的自测问卷表和分析表来测试一下。",
+        "list": [
+            {
+                "question": "为了较好地理解某些事物，我首先",
+                "pic_url":"http://18-newbee.top/src/dist/a1.jpg?696e24d72681c4447f221c2ef9dfc8bb",
+                "option1": "试试看。",
+                "option2": "深思熟虑。",
+                "option3": "",
+                "option4": ""
+            },
+            {
+                "question": "我办事喜欢",
+                "option1": "讲究实际",
+                "option2": "标新立异",
+                "option3": "",
+                "option4": ""
+
+            },
+            {
+                "question": "当我回想以前做过的事，我的脑海中大多会出现",
+                "option1": " 一幅画面。",
+                "option2": " 一些话语。",
+                "option3": "",
+                "option4": "",
+                "answer": "对",
+                "explain": "《公安部令第123号》第六十五条规定：机动车驾驶人在实习期内不得驾驶公共汽车、营运客车或者执行任务的警车、消防车、救护车、工程救险车以及载有爆炸物品、易燃易爆化学物品、剧毒或者放射性等危险物品的机动车；驾驶的机动车不得牵引挂车。",
+                "pic": "",
+                "type": "C1,C2,C3"
+            },
+             {
+                "question": "我往往会",
+                "option1": "明了事物的细节但不明其总体结构。",
+                "option2": "明了事物的总体结构但不明其细节。",
+                "option3": "",
+                "option4": ""
+            },
+            {
+                "question": "在学习某些东西时, 我不禁会",
+                "option1": "谈论它。",
+                "option2": "思考它。",
+                "option3": "",
+                "option4": ""
+            },
+            {
+                "question": "如果我是一名教师，我比较喜欢教",
+                "option1": "关于事实和实际情况的课程。",
+                "option2": "关于思想和理论方面的课程。",
+                "option3": "",
+                "option4": ""
+            },
+            {
+                "question": "我比较偏爱的获取新信息的媒体是",
+                "option1": "图画、图解、图形及图象。",
+                "option2": "书面指导和言语信息。",
+                "option3": "",
+                "option4": ""
+            },
+            {
+                "question": "一旦我了解了",
+                "option1": "事物的所有部分, 我就能把握其整体。",
+                "option2": "事物的整体，我就知道其构成部分。",
+                "option3": "",
+                "option4": ""
+            },
+            {
+                "question": "在学习小组中遇到难题时，我通常会",
+                "option1": "挺身而出，畅所欲言。",
+                "option2": "往后退让，倾听意见。",
+                "option3": "",
+                "option4": ""
+            },
+            {
+                "question": "我发现比较容易学习的是",
+                "pic_url":"http://18-newbee.top/src/dist/a1.jpg?696e24d72681c4447f221c2ef9dfc8bb",
+                "option1": "事实性内容。",
+                "option2": "概念性内容。",
+                "option3": "",
+                "option4": ""
+            },   
+            {
+                "question": "在阅读一本带有许多插图的书时，我一般会",
+                "option1": "仔细观察插图。",
+                "option2": "集中注意文字。",
+                "option3": "",
+                "option4": ""
+            },
+            {
+                "question": "当我解决数学题时，我常常",
+                "option1": "思考如何一步一步求解。",
+                "option2": "先看解答，然后设法得出解题步骤。",
+                "option3": "",
+                "option4": ""
+            },
+            {
+                "question": "在我修课的班级中，",
+                "option1": "我通常结识许多同学。",
+                "option2": "我认识的同学寥寥无几。",
+                "option3": "",
+                "option4": ""
+            },
+            {
+                "question": "在阅读非小说类作品时，我偏爱",
+                "option1": "那些能告诉我新事实和教我怎么做的东西。",
+                "option2": "那些能启发我思考的东西。",
+                "option3": "",
+                "option4": ""
+            },
+            {
+                "question": "我喜欢的教师是",
+                "option1": "在黑板上画许多图解的人。",
+                "option2": "花许多时间讲解的人。",
+                "option3": "",
+                "option4": ""
+            },
+            {
+                "question": "当我在分析故事或小说时，",
+                "option1": "我想到各种情节并试图把他们结合起来去构想主题。",
+                "option2": "当我读完时只知道主题是什么，然后我得回头去寻找有关情节。",
+                "option3": "",
+                "option4": ""
+            },
+            {
+                "question": "当我做家庭作业时，我比较喜欢",
+                "option1": " 一开始就立即做解答。",
+                "option2": "首先设法理解题意。",
+                "option3": "",
+                "option4": ""
+            },
+            {
+                "question": "我记得最牢的是",
+                "option1": "看到的东西。",
+                "option2": " 听到的东西。",
+                "option3": "",
+                "option4": ""
+            },
+            {
+                "question": "我比较喜欢",
+                "option1": "确定性的想法。",
+                "option2": "推论性的想法。",
+                "option3": "",
+                "option4": ""
+            },
+            {
+                "question": "我特别喜欢教师",
+                "pic_url":"http://18-newbee.top/src/dist/a1.jpg?696e24d72681c4447f221c2ef9dfc8bb",
+                "option1": "向我条理分明地呈示材料。",
+                "option2": "先给我一个概貌，再将材料与其他论题相联系。",
+                "option3": "",
+                "option4": ""
+            },
+            {
+                "question": "我喜欢",
+                "option1": "在小组中学习。",
+                "option2": "独自学习。",
+                "option3": "",
+                "option4": ""
+            },
+            {
+                "question": "我更喜欢被认为是：",
+                "option1": "对工作细节很仔细。",
+                "option2": "对工作很有创造力。",
+                "option3": "",
+                "option4": ""
+            },
+            {
+                "question": "当要我到一个新的地方去时，我喜欢",
+                "option1": " 要一幅地图。",
+                "option2": "要书面指南",
+                "option3": "",
+                "option4": ""
+            },
+            {
+                "question": "我学习时",
+                "option1": "总是按部就班，相信只要努力，终有所得。",
+                "option2": "有时完全糊涂，然后恍然大悟。",
+                "option3": "",
+                "option4": ""
+            },
+            {
+                "question": "我办事时喜欢",
+                "option1": "试试看。",
+                "option2": "想好再做。",
+                "option3": "",
+                "option4": ""
+            },
+            {
+                "question": "当我阅读趣闻时, 我喜欢作者",
+                "option1": "以开门见山的方式叙述。",
+                "option2": "以新颖有趣的方式叙述。",
+                "option3": "",
+                "option4": ""
+            },
+            {
+                "question": "当我在上课时看到一幅图, 我通常会清晰地记着",
+                "option1": "那幅图。",
+                "option2": "教师对那幅图的解说。",
+                "option3": "",
+                "option4": ""
+            },
+            {
+                "question": "当我思考一大段信息资料时，我通常",
+                "option1": "注意细节而忽视概貌。",
+                "option2": "先了解概貌而后深入细节。",
+                "option3": "",
+                "option4": ""
+            },
+            {
+                "question": "我最容易记住",
+                "option1": "我做过的事。",
+                "option2": "我想过的许多事。",
+                "option3": "",
+                "option4": ""
+            },
+            {
+                "question": "当我执行一项任务是，我喜欢",
+                "pic_url":"http://18-newbee.top/src/dist/a1.jpg?696e24d72681c4447f221c2ef9dfc8bb",
+                "option1": "掌握一种方法。",
+                "option2": "想出多种方法。",
+                "option3": "",
+                "option4": ""
+            },
+            {
+                "question": "当有人向我展示资料时，我喜欢",
+                "option1": "以图表形式展示",
+                "option2": "概括其结果的文字。",
+                "option3": "",
+                "option4": ""
+            },
+            {
+                "question": "当我写文章时，我通常",
+                "option1": "先思考和着手写文章的开头，然后循序渐进。",
+                "option2": " 先思考和写作文章的不同部分，然后加以整理。",
+                "option3": "",
+                "option4": ""
+            },
+            {
+                "question": "当我必须参加小组合作课题时，我要",
+                "option1": "大家首先“集思广益”，人人贡献主意。",
+                "option2": "各人分头思考，然后集中起来比较各种想法。",
+                "option3": "",
+                "option4": ""
+            },
+            {
+                "question": "当我要赞扬他人时，我说他是",
+                "option1": "很敏感的。",
+                "option2": "想象力丰富的。",
+                "option3": "",
+                "option4": ""
+            },
+            {
+                "question": "当我在聚会时与人见过面，我通常会记得",
+                "option1": "他们的模样。",
+                "option2": "他们的自我介绍。",
+                "option3": "",
+                "option4": ""
+            },
+            {
+                "question": "当我学习新的科目时, 我喜欢",
+                "option1": "全力以赴，尽量学得多学得好。",
+                "option2": "试图建立该科目与其他有关科目的联系。",
+                "option3": "",
+                "option4": ""
+            },
+            {
+                "question": "我通常被他人认为是",
+                "option1": "外向的。",
+                "option2": "保守的。",
+                "option3": "",
+                "option4": ""
+            },
+            {
+                "question": "我喜欢的课程内容主要是",
+                "option1": "具体材料（事实、数据）。",
+                "option2": "抽象材料 (概念、理论)。",
+                "option3": "",
+                "option4": ""
+            },
+            {
+                "question": "在娱乐方面，我更喜欢",
+                "option1": "看电视。",
+                "option2": "看书。",
+                "option3": "",
+                "option4": ""
+            },
+            {
+                "question": "有些教师讲课时先给出一个提纲，这种提纲对我",
+                "pic_url":"http://18-newbee.top/src/dist/a1.jpg?696e24d72681c4447f221c2ef9dfc8bb",
+                "option1": " 有所帮助。",
+                "option2": "很有帮助。",
+                "option3": "",
+                "option4": ""
+            },
+            {
+                "question": "我认为只给合作的群体打一个分数的想法",
+                "option1": "吸引我。",
+                "option2": "不吸引我。",
+                "option3": "",
+                "option4": ""
+            },
+            {
+                "question": "当我长时间地从事计算工作时",
+                "option1": "我喜欢重复我的步骤并仔细地检查我的工作。",
+                "option2": "我认为检查工作非常无聊，我是在逼迫自己这么干。",
+                "option3": "",
+                "option4": ""
+            },
+            {
+                "question": "我能画下我去过的地方",
+                "option1": "很容易且相当精确。",
+                "option2": "很困难且没有许多细节。",
+                "option3": "",
+                "option4": ""
+            },
+            {
+                "question": "当在小组中解决问题时，我更可能是",
+                "option1": "思考解决问题的步骤。",
+                "option2": "思考可能的结果及其在更广泛的领域内的应用。",
+                "option3": "",
+                "option4": ""
+            }
+        ]
+    }
+}

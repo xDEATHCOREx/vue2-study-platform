@@ -35,6 +35,15 @@
   :resourceId="detail.resourceId"
   :courseId="detail.resource.courseId"
   @closeEvaluate="closeEvaluate"></evaluate>
+
+  <mu-raised-button 
+    :disabled="!detail.judged" 
+    label="重新评价" 
+    class="demo-raised-button" 
+    fullWidth 
+    secondary
+    @click="openEvaluate"/>
+
 </div>
 </template>
 
@@ -47,7 +56,7 @@ import evaluate from '../components/evaluate.vue'
 	export default {
     data () {
       return {
-        title:'picCourse',
+        title:'图片资源',
         open:false,
         toOpenEvaluate:false,
         target:'',
@@ -132,6 +141,9 @@ import evaluate from '../components/evaluate.vue'
 
       }   
     },
+    watch: {//路由query更新时重新取数据
+      '$route':'getResourceDetail'
+    },
     computed: {
       swiper() {
         return this.$refs.mySwiper.swiper
@@ -141,6 +153,7 @@ import evaluate from '../components/evaluate.vue'
       },
        ...mapState({
         evaluated:'evaluated',
+         logIn:'logIn',//记录了vuex store中的登录态
       })
     },
     mounted(){
@@ -157,6 +170,7 @@ import evaluate from '../components/evaluate.vue'
       
        //获取资源内容（这里是图片资源）
       this.getResourceDetail()
+
     },
     
     methods:{
@@ -170,8 +184,10 @@ import evaluate from '../components/evaluate.vue'
             if(this.detail.judged){
               //调用接口取得数据及是否已评价情况，if已评价
               this.$store.commit('setEvaluated')
+               this.target='' //重置内部跳转的缓存
             }else{
               this.$store.commit('resetEvaluated')
+             
             }
           }else{
             this.$store.commit('topPopupToggle',res.data.result_msg)
@@ -180,6 +196,8 @@ import evaluate from '../components/evaluate.vue'
         .catch(err=> {
           console.log(err)
         })
+
+
       },
        openList(){
         this.open = true
@@ -206,20 +224,55 @@ import evaluate from '../components/evaluate.vue'
         console.warn("evaluated:",this.evaluated)   
         next()
       }else{
+       if(this.logIn){//这里检查登录状态若已登录才弹出评价！
+          this.open = false //重要！！关闭选择资源的dialog
+          if(to.path=='/detail'){//判断是初次评价却返回到详情页逻辑
+             this.target =  {
+              path : 'detail',
+              query:{id: this.detail.resource.courseId}
+           }
+          }else{
+            this.target = {
+                path : to.path,
+                query:{resourceId:to.query.resourceId}
+             }
+          }   
+          this.openEvaluate()//这里带上评价后的目的路由及参数？
+          next(false)
+           console.warn("evaluated:",this.evaluated)   
+        }else{
+          next()
+        }  
+      }
+    },
+    beforeRouteUpdate (to, from, next) {
+    // 在当前路由改变，但是该组件被复用时调用
+    // 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，
+    // 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
+    // 可以访问组件实例 `this`
+      if(this.evaluated){  
         this.open = false  //重要！！关闭选择资源的dialog
-        this.target = {
-            path : to.path,
-            query:{resourceId:to.query.resourceId}
-         }
-        this.openEvaluate()//这里带上评价后的目的路由及参数？
-        next(false)
-         console.warn("evaluated:",this.evaluated)   
+        console.warn("evaluated:",this.evaluated)   
+        next()
+      }else{  
+        if(this.logIn){//这里检查登录状态若已登录才弹出评价！
+          this.open = false //重要！！关闭选择资源的dialog
+          this.target = {
+              path : to.path,
+              query:{resourceId:to.query.resourceId}
+           }
+          this.openEvaluate()//这里带上评价后的目的路由及参数？
+          next(false)
+           console.warn("evaluated:",this.evaluated)   
+        }else{
+          next()
+        }
       }
     },
   }
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
 .main-swiper{
   height: 85%;
 }
@@ -228,5 +281,9 @@ import evaluate from '../components/evaluate.vue'
 }
 .picture{
   width: 100%;
+}
+.demo-raised-button{
+  position: fixed;
+  bottom: 0px;
 }
 </style>

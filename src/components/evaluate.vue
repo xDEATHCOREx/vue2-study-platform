@@ -3,23 +3,23 @@
   <mu-dialog :open="toOpenEvaluate" title="请评价当前学习资源" bodyClass="dialog-body"scrollable>
      <mu-list >
      <mu-list-item title="非常满意" @click="toEvaluate('1')" >
-      <mu-icon slot="left" value="subscriptions"/>
+      <mu-icon slot="left" value="sentiment_very_satisfied"/>
     </mu-list-item>
      <mu-divider/>
     <mu-list-item title="满意" @click="toEvaluate('2')"  >
-      <mu-icon slot="left" value="edit" />
+      <mu-icon slot="left" value="sentiment_satisfied" />
     </mu-list-item>
      <mu-divider/>
     <mu-list-item title="一般" @click="toEvaluate('3')" >
-      <mu-icon slot="left" value="image" />
+      <mu-icon slot="left" value="sentiment_neutral" />
     </mu-list-item>
      <mu-divider/>
     <mu-list-item title="不满意" @click="toEvaluate('4')" >
-      <mu-icon slot="left" value="subscriptions"/>
+      <mu-icon slot="left" value="sentiment_dissatisfied"/>
     </mu-list-item>
      <mu-divider/>
     <mu-list-item title="非常不满意" @click="toEvaluate('5')" >
-      <mu-icon slot="left" value="edit" />
+      <mu-icon slot="left" value="sentiment_very_dissatisfied" />
     </mu-list-item>
   </mu-list>
  
@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
 export default {
   data () {
     return {
@@ -36,6 +37,8 @@ export default {
     }
   },
   props:['toOpenEvaluate','target','resourceId','courseId'],
+  computed:mapState({
+    }),
   methods: {
     toEvaluate(tag){
       this.$store.commit('loadingToggle')//转菊花
@@ -59,6 +62,8 @@ export default {
                 //弹出提示
                 this.$store.commit('topPopupToggle',"已评价！")
                 this.$store.commit('setEvaluated')
+
+                this.$emit('closeEvaluate')
                 this.jumpTo()
               }else{//其他情况
                 this.$store.commit('topPopupToggle',res.data.result_msg)
@@ -74,9 +79,10 @@ export default {
       this.$emit('closeEvaluate')
     },
     jumpTo(){
-      
      // document.getElementById('close-btn').click()//模拟点击了关闭按钮
-      this.$router.push(this.target)
+      if(this.target!=''){
+        this.$router.push(this.target)
+      }
     }
   }
 }
@@ -85,5 +91,6 @@ export default {
 <style lang="css" >
 .dialog-body{
   padding: 0px 0px 0px 0px!important;
+  -webkit-overflow-scrolling: touch;
 }
 </style>

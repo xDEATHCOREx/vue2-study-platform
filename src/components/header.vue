@@ -69,7 +69,7 @@ export default {
 	.header-nav{
 		position: fixed;
 		top: 0;
-		z-index:100;/*保持最大除了遮罩层和侧滑菜单*/
+		z-index:2018;/*保持最大除了遮罩层和侧滑菜单*/
 		transition: top .5s;
 	}
 	.hidden{

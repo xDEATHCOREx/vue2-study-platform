@@ -5,7 +5,7 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
 	state:{
-		title:'Index', //顶部导航条的标题
+		title:'学习平台', //顶部导航条的标题
 		user:'', //登录用户名
         userId:'',
 		logIn:false, //用户登录态
@@ -16,7 +16,7 @@ const store = new Vuex.Store({
         isScroll:false,
         isAutomaticLogIn:true,
         isLearning:false,
-        evaluated:false,//课程的评价状态
+        evaluated:false,//课程的评价状态ss
         scrollDirection:'',
         score:'',//用户测试的得分情况
         tips:{ //提示条配置
